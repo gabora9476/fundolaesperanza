@@ -10,9 +10,52 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#e91e63">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
+        :root {
+            --primary-color: #e91e63;
+            --primary-light: #f06292;
+            --primary-dark: #c2185b;
+            --secondary-color: #4CAF50;
+            --secondary-light: #81C784;
+            --secondary-dark: #388E3C;
+            --text-color: #333333;
+            --text-light: #666666;
+            --background-color: #f5f5f5;
+            --card-background: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #f06292;
+            --primary-light: #f8bbd0;
+            --primary-dark: #c2185b;
+            --secondary-color: #81C784;
+            --secondary-light: #A5D6A7;
+            --secondary-dark: #388E3C;
+            --text-color: #f0f0f0;
+            --text-light: #bbbbbb;
+            --background-color: #121212;
+            --card-background: #1e1e1e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -21,10 +64,12 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #e91e63 0%, #f06292 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
             min-height: 100vh;
-            color: #333;
-            font-size: 14px;
+            color: var(--text-color);
+            font-size: 16px;
+            line-height: 1.5;
+            transition: var(--transition);
         }
 
         .container {
@@ -35,57 +80,90 @@
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             animation: fadeInDown 0.8s ease-out;
         }
 
         .logo {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 15px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow);
         }
 
         .logo h1 {
             color: white;
-            font-size: 28px;
+            font-size: clamp(22px, 5vw, 28px);
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .logo p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(14px, 3vw, 16px);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .theme-toggle i {
+            font-size: 24px;
+            color: white;
         }
 
         .nav-buttons {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             animation: fadeInUp 0.8s ease-out;
         }
 
         .nav-btn {
-            padding: 12px 24px;
+            padding: 12px 20px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+            border-radius: var(--border-radius);
             color: white;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--transition);
             font-size: 14px;
             font-weight: 500;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .nav-btn:hover, .nav-btn.active {
             background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
         }
 
         .content-section {
@@ -98,18 +176,19 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-background);
             backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: var(--border-radius);
+            padding: 25px;
             margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
         }
 
         .form-group {
@@ -120,60 +199,79 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #444;
-            font-size: 13px;
+            color: var(--text-color);
+            font-size: 14px;
         }
 
         .form-control {
             width: 100%;
             padding: 12px 16px;
             border: 2px solid rgba(233, 30, 99, 0.1);
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             background: rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease;
-            font-size: 14px;
+            transition: var(--transition);
+            font-size: 16px;
+            min-height: 44px;
+        }
+
+        [data-theme="dark"] .form-control {
+            background: rgba(30, 30, 30, 0.8);
+            color: var(--text-color);
+            border-color: rgba(240, 98, 146, 0.2);
         }
 
         .form-control:focus {
             outline: none;
-            border-color: #e91e63;
+            border-color: var(--primary-color);
             background: white;
             box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
         }
 
+        [data-theme="dark"] .form-control:focus {
+            background: rgba(50, 50, 50, 0.9);
+        }
+
         .btn-primary {
-            background: linear-gradient(135deg, #e91e63, #f06292);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
             color: white;
             border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
+            padding: 14px 24px;
+            border-radius: var(--border-radius);
             cursor: pointer;
             font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+            box-shadow: var(--shadow-hover);
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.2);
-            color: #e91e63;
-            border: 2px solid #e91e63;
-            padding: 12px 24px;
-            border-radius: 10px;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
             cursor: pointer;
             font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            font-size: 16px;
+            transition: var(--transition);
             margin-right: 10px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-secondary:hover {
-            background: #e91e63;
+            background: var(--primary-color);
             color: white;
             transform: translateY(-2px);
         }
@@ -182,16 +280,20 @@
             background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s ease;
+            font-size: 14px;
+            transition: var(--transition);
+            min-height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-danger:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            box-shadow: var(--shadow);
         }
 
         .grid {
@@ -202,37 +304,48 @@
         }
 
         .event-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
             padding: 20px;
-            border-left: 4px solid #e91e63;
-            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
         }
 
         .event-card:hover {
             transform: translateX(5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .event-card.past {
+            opacity: 0.7;
+            border-left-color: #999;
         }
 
         .event-date {
-            background: linear-gradient(135deg, #e91e63, #f06292);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
             color: white;
             padding: 8px 12px;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             font-size: 12px;
             font-weight: 600;
             display: inline-block;
             margin-bottom: 10px;
         }
 
+        .event-card.past .event-date {
+            background: linear-gradient(135deg, #999, #666);
+        }
+
         .residents-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background: white;
-            border-radius: 10px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
         }
 
         .residents-table th,
@@ -240,17 +353,26 @@
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            font-size: 13px;
+            font-size: 14px;
+        }
+
+        [data-theme="dark"] .residents-table th,
+        [data-theme="dark"] .residents-table td {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
         }
 
         .residents-table th {
-            background: #e91e63;
+            background: var(--primary-color);
             color: white;
             font-weight: 600;
         }
 
         .residents-table tr:hover {
             background: rgba(233, 30, 99, 0.05);
+        }
+
+        [data-theme="dark"] .residents-table tr:hover {
+            background: rgba(240, 98, 146, 0.1);
         }
 
         .modal {
@@ -273,21 +395,22 @@
         }
 
         .modal-content {
-            background: white;
-            border-radius: 20px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
             padding: 30px;
             max-width: 500px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
             animation: slideIn 0.3s ease-out;
+            box-shadow: var(--shadow-hover);
         }
 
         .certificate {
             background: white;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
             font-family: 'Times New Roman', serif;
             line-height: 1.6;
             color: #333;
@@ -296,12 +419,12 @@
         .certificate-header {
             text-align: center;
             margin-bottom: 30px;
-            border-bottom: 2px solid #e91e63;
+            border-bottom: 2px solid var(--primary-color);
             padding-bottom: 20px;
         }
 
         .certificate h2 {
-            color: #e91e63;
+            color: var(--primary-color);
             font-size: 18px;
             margin-bottom: 10px;
         }
@@ -362,10 +485,10 @@
         }
 
         .success-message {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
             color: white;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             margin: 20px 0;
             text-align: center;
             font-weight: 600;
@@ -376,7 +499,7 @@
             background: linear-gradient(135deg, #f44336, #e53935);
             color: white;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             margin: 20px 0;
             text-align: center;
             font-weight: 600;
@@ -395,16 +518,215 @@
             color: #333;
             border: none;
             padding: 8px 16px;
-            border-radius: 6px;
+            border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            min-height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-edit-censo:hover {
             background: #ffb300;
             transform: translateY(-1px);
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 45px;
+            border: 2px solid rgba(233, 30, 99, 0.1);
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+            font-size: 16px;
+        }
+
+        [data-theme="dark"] .search-input {
+            background: rgba(30, 30, 30, 0.8);
+            color: var(--text-color);
+            border-color: rgba(240, 98, 146, 0.2);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+        }
+
+        [data-theme="dark"] .search-input:focus {
+            background: rgba(50, 50, 50, 0.9);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            color: white;
+            font-weight: 600;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+            max-width: 300px;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #f44336, #e53935);
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        .loading-text {
+            color: white;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .btn-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-icon.edit {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-icon.delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-icon.edit:hover {
+            background: #ffb300;
+        }
+
+        .btn-icon.delete:hover {
+            background: #c82333;
+        }
+
+        .censo-card-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .dato-fila {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        [data-theme="dark"] .dato-fila {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .dato-fila input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+        }
+
+        [data-theme="dark"] .dato-fila input {
+            background: rgba(50, 50, 50, 0.9);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+        }
+
+        .dato-fila button {
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        .campo-censo input:focus,
+        .dato-fila input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.1);
+        }
+
+        .past-event-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #999;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
         }
 
         @keyframes fadeIn {
@@ -427,135 +749,68 @@
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(180deg); }
         }
 
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* Media Queries para optimización móvil */
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
+            .container { padding: 15px; }
+            .logo { padding: 20px; }
+            .nav-buttons { gap: 8px; }
+            .nav-btn { padding: 10px 14px; font-size: 13px; }
+            .card { padding: 20px; margin-bottom: 15px; }
+            .grid { grid-template-columns: 1fr; gap: 15px; }
+            .modal-content { margin: 20px; padding: 20px; width: calc(100% - 40px); }
+            .certificate { padding: 20px; font-size: 14px; }
+            .residents-table { font-size: 12px; }
+            .residents-table th, .residents-table td { padding: 8px; }
+            .censo-actions { flex-direction: column; }
+            .theme-toggle { width: 45px; height: 45px; }
+            .theme-toggle i { font-size: 20px; }
+        }
 
-            .logo {
-                padding: 20px;
-            }
-
-            .logo h1 {
-                font-size: 24px;
-            }
-
-            .nav-buttons {
-                gap: 10px;
-            }
-
-            .nav-btn {
-                padding: 10px 16px;
-                font-size: 13px;
-            }
-
-            .card {
-                padding: 20px;
-                margin-bottom: 15px;
-            }
-
-            .grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .modal-content {
-                margin: 20px;
-                padding: 20px;
-                width: calc(100% - 40px);
-            }
-
-            .certificate {
-                padding: 20px;
-                font-size: 14px;
-            }
-
-            .residents-table {
-                font-size: 12px;
-            }
-
-            .residents-table th,
-            .residents-table td {
-                padding: 8px;
-            }
-
-            .censo-actions {
-                flex-direction: column;
-            }
+        @media (max-width: 480px) {
+            .container { padding: 10px; }
+            .logo { padding: 15px; }
+            .card { padding: 15px; }
+            .modal-content { padding: 15px; }
+            .btn-primary, .btn-secondary { width: 100%; margin-bottom: 10px; }
+            .btn-secondary { margin-right: 0; }
         }
     </style>
-
-    <!-- Firebase Configuration -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-        import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-        
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDAHtzN2bQcuaPZL7HAFKDetGx11SxQLig",
-            authDomain: "fundole15.firebaseapp.com",
-            projectId: "fundole15",
-            storageBucket: "fundole15.firebasestorage.app",
-            messagingSenderId: "1027977132139",
-            appId: "1:1027977132139:web:d9eb092017b604389d192e",
-            measurementId: "G-03TGBRNJCP"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getFirestore(app);
-        
-        // Hacer disponibles globalmente
-        window.db = db;
-        window.firebaseApp = app;
-        window.collection = collection;
-        window.addDoc = addDoc;
-        window.getDocs = getDocs;
-        window.updateDoc = updateDoc;
-        window.deleteDoc = deleteDoc;
-        window.doc = doc;
-        window.setDoc = setDoc;
-    </script>
-
-    <!-- PWA Manifest -->
-    <script>
-        // Crear el manifest dinámicamente
-        const manifest = {
-            "name": "Consejo Comunal Fundo La Esperanza",
-            "short_name": "CC Fundo La Esperanza",
-            "icons": [
-                {"src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png"},
-                {"src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png"}
-            ],
-            "theme_color": "#e91e63",
-            "background_color": "#ffffff",
-            "display": "standalone",
-            "start_url": "/",
-            "scope": "/"
-        };
-        
-        const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-        const manifestURL = URL.createObjectURL(manifestBlob);
-        
-        const link = document.createElement('link');
-        link.rel = 'manifest';
-        link.href = manifestURL;
-        document.head.appendChild(link);
-    </script>
 </head>
 <body>
     <div class="floating-elements">
         <div class="floating-circle"></div>
         <div class="floating-circle"></div>
         <div class="floating-circle"></div>
+    </div>
+
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i id="theme-icon" class="fas fa-moon"></i>
+    </div>
+
+    <div class="loading-overlay" id="loading-overlay">
+        <div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Cargando...</div>
+        </div>
     </div>
 
     <div class="container">
@@ -575,11 +830,12 @@
             <button class="nav-btn" onclick="showSection('ejecutivo')" id="ejecutivo-btn" style="display: none;">👤 Panel Ejecutivo</button>
             <button class="nav-btn" onclick="cerrarSesion()" id="logout-btn" style="display: none;">🚪 Cerrar Sesión</button>
         </div>
-		<!-- Sección Carta de Residencia -->
+
+        <!-- Sección Carta de Residencia -->
         <div id="residencia" class="content-section active">
             <div class="card">
-                <h2 style="color: #e91e63; margin-bottom: 20px; font-size: 20px;">📋 Generar Carta de Residencia</h2>
-                <p style="margin-bottom: 20px; color: #666; font-size: 13px;">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px; font-size: 20px;">📋 Generar Carta de Residencia</h2>
+                <p style="margin-bottom: 20px; color: var(--text-light); font-size: 14px;">
                     Ingrese su cédula de identidad para generar su carta de residencia. 
                 </p>
                 
@@ -597,7 +853,7 @@
         <!-- Sección Eventos -->
         <div id="eventos" class="content-section">
             <div class="card">
-                <h2 style="color: #e91e63; margin-bottom: 20px; font-size: 20px;">📅 Eventos Comunitarios</h2>
+                <h2 style="color: var(--primary-color); margin-bottom: 20px; font-size: 20px;">📅 Eventos Comunitarios</h2>
                 
                 <button class="btn-primary" onclick="mostrarFormularioEvento()">+ Crear Nuevo Evento</button>
                 
@@ -610,8 +866,8 @@
         <!-- Sección Censos -->
         <div id="censos" class="content-section">
             <div class="card">
-                <h2 style="color: #e91e63; margin-bottom: 20px; font-size: 20px;">📊 Sistema de Censos Comunitarios</h2>
-                <p style="margin-bottom: 20px; color: #666; font-size: 13px;">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px; font-size: 20px;">📊 Sistema de Censos Comunitarios</h2>
+                <p style="margin-bottom: 20px; color: var(--text-light); font-size: 14px;">
                     Consulte los diferentes censos y estadísticas de la comunidad
                 </p>
                 
@@ -624,9 +880,9 @@
         <!-- Sección Login -->
         <div id="login" class="content-section">
             <div class="card" style="max-width: 400px; margin: 0 auto;">
-                <h2 style="color: #e91e63; margin-bottom: 20px; font-size: 20px; text-align: center;">🔐 Acceso Ejecutivo</h2>
+                <h2 style="color: var(--primary-color); margin-bottom: 20px; font-size: 20px; text-align: center;">🔐 Acceso Ejecutivo</h2>
                 
-                <form id="form-login">
+                <form id="form-login" onsubmit="return manejarLogin(event)">
                     <div class="form-group">
                         <label for="usuario-login">Usuario</label>
                         <input type="text" id="usuario-login" class="form-control" required>
@@ -644,8 +900,10 @@
                 
                 <div id="mensaje-login"></div>
                 
-                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #666; text-align: center;">
-                    <p><strong>Inicie sesion con su credencial de acceso:</strong></p>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: var(--text-light); text-align: center;">
+                    <p><strong>Credenciales de acceso:</strong></p>
+                    <p>Admin: admin / admin123</p>
+                    <p>Ejecutivo: ejecutivo / exec123</p>
                 </div>
             </div>
         </div>
@@ -654,14 +912,19 @@
         <div id="ejecutivo" class="content-section">
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2 style="color: #e91e63; font-size: 20px;">👤 Panel Ejecutivo</h2>
-                    <div style="color: #666; font-size: 14px;">
+                    <h2 style="color: var(--primary-color); font-size: 20px;">👤 Panel Ejecutivo</h2>
+                    <div style="color: var(--text-light); font-size: 14px;">
                         Bienvenido, <strong id="usuario-actual"></strong>
                     </div>
                 </div>
                 
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-residentes" class="search-input" placeholder="Buscar residentes por cédula o nombre...">
+                </div>
+                
                 <div class="grid" style="margin-bottom: 30px;">
-                    <div class="card" style="background: linear-gradient(135deg, #e91e63, #f06292); color: white;">
+                    <div class="card" style="background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); color: white;">
                         <h3 style="margin-bottom: 15px;">👥 Gestión de Residentes</h3>
                         <div style="margin-bottom: 15px;">
                             <button class="btn-secondary" onclick="mostrarFormularioResidente()" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);">+ Agregar Residente</button>
@@ -669,7 +932,7 @@
                         </div>
                     </div>
                     
-                    <div class="card" style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white;">
+                    <div class="card" style="background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light)); color: white;">
                         <h3 style="margin-bottom: 15px;">📊 Sistema de Censos</h3>
                         <div style="margin-bottom: 15px;">
                             <button class="btn-secondary" onclick="mostrarFormularioCenso()" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);">+ Crear Censo</button>
@@ -681,8 +944,8 @@
 
                 <!-- Configuración (solo para admin) -->
                 <div id="config-admin" style="display: none;">
-                    <div class="card" style="background: #f8f9fa; border-left: 4px solid #e91e63;">
-                        <h3 style="color: #e91e63; margin-bottom: 20px;">⚙️ Configuración del Sistema</h3>
+                    <div class="card" style="background: #f8f9fa; border-left: 4px solid var(--primary-color);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 20px;">⚙️ Configuración del Sistema</h3>
                         
                         <div class="grid" style="margin-bottom: 20px;">
                             <div class="form-group">
@@ -692,7 +955,7 @@
                             </div>
                         </div>
                         
-                        <h4 style="color: #e91e63; margin: 20px 0 15px 0;">👥 Gestión de Ejecutivos</h4>
+                        <h4 style="color: var(--primary-color); margin: 20px 0 15px 0;">👥 Gestión de Ejecutivos</h4>
                         <div style="margin-bottom: 20px;">
                             <button class="btn-primary" onclick="mostrarFormularioEjecutivo()">+ Agregar Ejecutivo</button>
                         </div>
@@ -718,7 +981,7 @@
                 
                 <!-- Tabla de Residentes -->
                 <div style="overflow-x: auto;">
-                    <h3 style="color: #e91e63; margin-bottom: 15px;">👥 Residentes Registrados</h3>
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px;">👥 Residentes Registrados</h3>
                     <table class="residents-table">
                         <thead>
                             <tr>
@@ -756,8 +1019,8 @@
     <!-- Modal para Eventos -->
     <div id="modal-evento" class="modal">
         <div class="modal-content">
-            <h3 style="color: #e91e63; margin-bottom: 20px;">📅 Crear/Editar Evento</h3>
-            <form id="form-evento">
+            <h3 style="color: var(--primary-color); margin-bottom: 20px;">📅 Crear/Editar Evento</h3>
+            <form id="form-evento" onsubmit="return manejarEvento(event)">
                 <div class="form-group">
                     <label for="titulo-evento">Título del Evento</label>
                     <input type="text" id="titulo-evento" class="form-control" required>
@@ -794,8 +1057,8 @@
     <!-- Modal para Residentes -->
     <div id="modal-residente" class="modal">
         <div class="modal-content">
-            <h3 style="color: #e91e63; margin-bottom: 20px;">👤 Agregar/Editar Residente</h3>
-            <form id="form-residente">
+            <h3 style="color: var(--primary-color); margin-bottom: 20px;">👤 Agregar/Editar Residente</h3>
+            <form id="form-residente" onsubmit="return manejarResidente(event)">
                 <div class="form-group">
                     <label for="cedula-residente">Cédula de Identidad</label>
                     <input type="text" id="cedula-residente" class="form-control" required>
@@ -844,11 +1107,12 @@
             </form>
         </div>
     </div>
-	<!-- Modal para Ejecutivos -->
+
+    <!-- Modal para Ejecutivos -->
     <div id="modal-ejecutivo" class="modal">
         <div class="modal-content">
-            <h3 style="color: #e91e63; margin-bottom: 20px;">👤 Agregar/Editar Ejecutivo</h3>
-            <form id="form-ejecutivo">
+            <h3 style="color: var(--primary-color); margin-bottom: 20px;">👤 Agregar/Editar Ejecutivo</h3>
+            <form id="form-ejecutivo" onsubmit="return manejarEjecutivo(event)">
                 <div class="form-group">
                     <label for="usuario-ejecutivo">Usuario</label>
                     <input type="text" id="usuario-ejecutivo" class="form-control" required>
@@ -883,7 +1147,7 @@
     <!-- Modal para Censos -->
     <div id="modal-censo" class="modal">
         <div class="modal-content" style="max-width: 800px; max-height: 90vh;">
-            <h3 style="color: #e91e63; margin-bottom: 20px;" id="titulo-censo">📊 Datos del Censo</h3>
+            <h3 style="color: var(--primary-color); margin-bottom: 20px;" id="titulo-censo">📊 Datos del Censo</h3>
             <div id="contenido-censo" style="max-height: 60vh; overflow-y: auto;">
                 <!-- El contenido del censo se cargará aquí -->
             </div>
@@ -897,8 +1161,8 @@
     <!-- Modal para Crear/Editar Censo -->
     <div id="modal-crear-censo" class="modal">
         <div class="modal-content" style="max-width: 600px;">
-            <h3 style="color: #e91e63; margin-bottom: 20px;" id="titulo-crear-censo">📊 Crear/Editar Censo</h3>
-            <form id="form-censo">
+            <h3 style="color: var(--primary-color); margin-bottom: 20px;" id="titulo-crear-censo">📊 Crear/Editar Censo</h3>
+            <form id="form-censo" onsubmit="return manejarCenso(event)">
                 <div class="form-group">
                     <label for="nombre-censo">Nombre del Censo</label>
                     <input type="text" id="nombre-censo" class="form-control" required placeholder="Ej: Censo de Niños por Edades">
@@ -946,7 +1210,7 @@
     <!-- Modal para Editar Datos de Censo -->
     <div id="modal-editar-censo" class="modal">
         <div class="modal-content" style="max-width: 700px; max-height: 90vh;">
-            <h3 style="color: #e91e63; margin-bottom: 20px;">✏️ Editar Datos del Censo</h3>
+            <h3 style="color: var(--primary-color); margin-bottom: 20px;">✏️ Editar Datos del Censo</h3>
             <div style="max-height: 60vh; overflow-y: auto;">
                 <form id="form-editar-censo">
                     <div class="form-group">
@@ -989,216 +1253,7 @@
         </div>
     </div>
 
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;">
-        <div style="background: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-            <div style="width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #e91e63; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px;"></div>
-            <p style="color: #333; font-weight: 600;">Cargando datos...</p>
-        </div>
-    </div>
-
-    <style>
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .campo-censo {
-            animation: slideIn 0.3s ease-out;
-        }
-        
-        .dato-fila {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
-        }
-        
-        .dato-fila input {
-            flex: 1;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            background: white;
-        }
-        
-        .dato-fila button {
-            padding: 6px 10px;
-            font-size: 12px;
-        }
-        
-        .campo-censo input:focus,
-        .dato-fila input:focus {
-            outline: none;
-            border-color: #e91e63;
-            box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.1);
-        }
-        
-        .tabla-censo {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .tabla-censo th,
-        .tabla-censo td {
-            padding: 10px 12px;
-            text-align: left;
-            border-bottom: 1px solid #e9ecef;
-            font-size: 13px;
-        }
-        
-        .tabla-censo th {
-            background: #e91e63;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .tabla-censo tr:hover {
-            background: rgba(233, 30, 99, 0.05);
-        }
-        
-        .tabla-censo tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .censo-card-actions {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            display: flex;
-            gap: 5px;
-        }
-        
-        .censo-card {
-            position: relative;
-            background: linear-gradient(135deg, #e91e63, #f06292);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 15px;
-            padding: 20px;
-            overflow: hidden;
-        }
-        
-        .censo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.3);
-        }
-        
-        .censo-card h3 {
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-        
-        .censo-card p {
-            margin-bottom: 10px;
-            opacity: 0.9;
-            font-size: 14px;
-        }
-        
-        .censo-info-badge {
-            background: rgba(255,255,255,0.2);
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        
-        .btn-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 14px;
-        }
-        
-        .btn-icon:hover {
-            transform: scale(1.1);
-        }
-        
-        .btn-icon.edit {
-            background: #ffc107;
-            color: #333;
-        }
-        
-        .btn-icon.delete {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .btn-icon.edit:hover {
-            background: #ffb300;
-        }
-        
-        .btn-icon.delete:hover {
-            background: #c82333;
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            z-index: 10000;
-            animation: slideInRight 0.3s ease-out;
-            max-width: 300px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        
-        .notification.success {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-        }
-        
-        .notification.error {
-            background: linear-gradient(135deg, #f44336, #e53935);
-        }
-        
-        .notification.info {
-            background: linear-gradient(135deg, #2196F3, #1976D2);
-        }
-        
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-    </style>
-	<script>
+    <script>
         // Variables globales
         let residentes = [];
         let eventos = [];
@@ -1211,6 +1266,14 @@
         let ejecutivoEditando = null;
         let censoEditando = null;
 
+        // Configuración de Supabase
+        const supabaseUrl = 'https://eorxvejwarymoacsasat.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVvcnh2ZWp3YXJ5bW9hY3Nhc2F0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwNDE2NzMsImV4cCI6MjA3NzYxNzY3M30.jJEFWlfG9RnkRvAIKFTlOxQWo31538xJ2o8XrqFYCNM';
+
+        // Crear cliente de Supabase
+        const { createClient } = supabase;
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
         // Inicialización cuando se carga la página
         document.addEventListener('DOMContentLoaded', function() {
             inicializarSistema();
@@ -1219,7 +1282,12 @@
         async function inicializarSistema() {
             mostrarLoading(true);
             try {
-                // Cargar datos iniciales desde Firebase
+                // Cargar tema guardado
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                updateThemeIcon(savedTheme);
+                
+                // Cargar datos iniciales desde Supabase
                 await cargarDatosIniciales();
                 
                 // Configurar eventos de formularios
@@ -1235,41 +1303,61 @@
             } catch (error) {
                 console.error('Error al inicializar:', error);
                 mostrarNotificacion('Error al cargar datos del sistema', 'error');
-                cargarDatosEjemplo(); // Cargar datos de ejemplo si falla Firebase
+                cargarDatosEjemplo(); // Cargar datos de ejemplo si falla Supabase
             }
             mostrarLoading(false);
         }
 
         async function cargarDatosIniciales() {
             try {
+                // Cargar residentes
+                const { data: residentesData, error: residentesError } = await supabase
+                    .from('residentes')
+                    .select('*');
+                
+                if (residentesError) throw residentesError;
+                residentes = residentesData || [];
+                
+                // Cargar eventos
+                const { data: eventosData, error: eventosError } = await supabase
+                    .from('eventos')
+                    .select('*');
+                
+                if (eventosError) throw eventosError;
+                eventos = eventosData || [];
+                
                 // Cargar ejecutivos
-                const ejecutivosSnapshot = await window.getDocs(window.collection(window.db, 'ejecutivos'));
-                ejecutivos = ejecutivosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                const { data: ejecutivosData, error: ejecutivosError } = await supabase
+                    .from('ejecutivos')
+                    .select('*');
+                
+                if (ejecutivosError) throw ejecutivosError;
+                ejecutivos = ejecutivosData || [];
+                
+                // Cargar censos
+                const { data: censosData, error: censosError } = await supabase
+                    .from('censos')
+                    .select('*');
+                
+                if (censosError) throw censosError;
+                censos = censosData || [];
+                
+                // Cargar configuración
+                const { data: configuracionData, error: configuracionError } = await supabase
+                    .from('configuracion')
+                    .select('*')
+                    .single();
+                
+                if (!configuracionError && configuracionData) {
+                    configuracion = configuracionData;
+                }
                 
                 if (ejecutivos.length === 0) {
-                    // Crear ejecutivos por defecto
                     await crearEjecutivosPorDefecto();
                 }
-
-                // Cargar residentes
-                const residentesSnapshot = await window.getDocs(window.collection(window.db, 'residentes'));
-                residentes = residentesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-                // Cargar eventos
-                const eventosSnapshot = await window.getDocs(window.collection(window.db, 'eventos'));
-                eventos = eventosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-                // Cargar censos
-                const censosSnapshot = await window.getDocs(window.collection(window.db, 'censos'));
-                censos = censosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-                // Cargar configuración
-                const configSnapshot = await window.getDocs(window.collection(window.db, 'configuracion'));
-                if (!configSnapshot.empty) {
-                    configuracion = configSnapshot.docs[0].data();
-                }
+                
             } catch (error) {
-                console.error('Error cargando datos de Firebase:', error);
+                console.error('Error cargando datos de Supabase:', error);
                 throw error;
             }
         }
@@ -1293,14 +1381,23 @@
             ];
 
             for (const ejecutivo of ejecutivosDefecto) {
-                await window.addDoc(window.collection(window.db, 'ejecutivos'), ejecutivo);
+                const { error } = await supabase
+                    .from('ejecutivos')
+                    .insert(ejecutivo);
+                
+                if (error) throw error;
             }
             
-            ejecutivos = ejecutivosDefecto;
+            // Recargar ejecutivos después de crear los por defecto
+            const { data } = await supabase
+                .from('ejecutivos')
+                .select('*');
+            
+            ejecutivos = data || [];
         }
 
         function cargarDatosEjemplo() {
-            // Datos de ejemplo si Firebase falla
+            // Datos de ejemplo si Supabase falla
             residentes = [
                 {
                     id: '1',
@@ -1359,12 +1456,10 @@
                 formatearCedula(e.target);
             });
 
-            // Formularios
-            document.getElementById('form-login').addEventListener('submit', manejarLogin);
-            document.getElementById('form-evento').addEventListener('submit', manejarEvento);
-            document.getElementById('form-residente').addEventListener('submit', manejarResidente);
-            document.getElementById('form-ejecutivo').addEventListener('submit', manejarEjecutivo);
-            document.getElementById('form-censo').addEventListener('submit', manejarCenso);
+            // Búsqueda de residentes
+            document.getElementById('search-residentes').addEventListener('input', function(e) {
+                filtrarResidentes(e.target.value);
+            });
 
             // Cerrar modales con Escape
             document.addEventListener('keydown', function(e) {
@@ -1409,22 +1504,22 @@
         }
 
         // Gestión de sesiones
-        async function manejarLogin(e) {
-            e.preventDefault();
+        function manejarLogin(event) {
+            event.preventDefault();
             const usuario = document.getElementById('usuario-login').value.trim();
             const password = document.getElementById('password-login').value.trim();
             const mensajeDiv = document.getElementById('mensaje-login');
             
             if (!usuario || !password) {
                 mensajeDiv.innerHTML = '<div class="error-message">Complete todos los campos</div>';
-                return;
+                return false;
             }
             
             const ejecutivo = ejecutivos.find(e => e.usuario === usuario && e.password === password && e.activo);
             
             if (!ejecutivo) {
                 mensajeDiv.innerHTML = '<div class="error-message">Credenciales incorrectas</div>';
-                return;
+                return false;
             }
             
             sesionActiva = ejecutivo;
@@ -1433,6 +1528,7 @@
             mensajeDiv.innerHTML = '<div class="success-message">Sesión iniciada correctamente</div>';
             document.getElementById('form-login').reset();
             mostrarNotificacion(`Bienvenido, ${ejecutivo.nombre}`, 'success');
+            return false;
         }
 
         function verificarSesion() {
@@ -1467,7 +1563,7 @@
             const tablaBody = document.getElementById('tabla-residentes');
             
             if (residentes.length === 0) {
-                tablaBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #666;">No hay residentes registrados</td></tr>';
+                tablaBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-light);">No hay residentes registrados</td></tr>';
                 return;
             }
             
@@ -1483,62 +1579,106 @@
                         <button class="btn-secondary" style="margin-right: 5px; padding: 6px 12px; font-size: 11px;" 
                                 onclick="mostrarFormularioResidente(${JSON.stringify(residente).replace(/"/g, '&quot;')})">Editar</button>
                         <button class="btn-danger" style="padding: 6px 12px; font-size: 11px;" 
-                                onclick="eliminarResidente('${residente.id || index}')">Eliminar</button>
+                                onclick="eliminarResidente('${residente.id}')">Eliminar</button>
                     </td>
                 </tr>
             `).join('');
         }
 
-        async function manejarResidente(e) {
-            e.preventDefault();
+        function filtrarResidentes(termino) {
+            const tablaBody = document.getElementById('tabla-residentes');
+            const terminoLower = termino.toLowerCase();
+            
+            if (!termino) {
+                cargarResidentes();
+                return;
+            }
+            
+            const residentesFiltrados = residentes.filter(residente => 
+                residente.cedula.toLowerCase().includes(terminoLower) || 
+                residente.nombre.toLowerCase().includes(terminoLower)
+            );
+            
+            if (residentesFiltrados.length === 0) {
+                tablaBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-light);">No se encontraron residentes con ese criterio</td></tr>';
+                return;
+            }
+            
+            tablaBody.innerHTML = residentesFiltrados.map((residente, index) => `
+                <tr>
+                    <td>${residente.cedula}</td>
+                    <td>${residente.nombre}</td>
+                    <td>${residente.nacionalidad}</td>
+                    <td>${residente.estadoCivil}</td>
+                    <td>${residente.casa}</td>
+                    <td>${residente.tiempoResidencia}</td>
+                    <td>
+                        <button class="btn-secondary" style="margin-right: 5px; padding: 6px 12px; font-size: 11px;" 
+                                onclick="mostrarFormularioResidente(${JSON.stringify(residente).replace(/"/g, '&quot;')})">Editar</button>
+                        <button class="btn-danger" style="padding: 6px 12px; font-size: 11px;" 
+                                onclick="eliminarResidente('${residente.id}')">Eliminar</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function manejarResidente(event) {
+            event.preventDefault();
             mostrarLoading(true);
             
-            try {
-                let cedula = document.getElementById('cedula-residente').value.trim();
-                
-                if (!cedula.startsWith('V-') && /^\d+$/.test(cedula)) {
-                    cedula = 'V-' + cedula;
-                }
-                
-                const residente = {
-                    cedula: cedula,
-                    nombre: document.getElementById('nombre-residente').value,
-                    nacionalidad: document.getElementById('nacionalidad-residente').value,
-                    estadoCivil: document.getElementById('estado-civil-residente').value,
-                    casa: document.getElementById('casa-residente').value,
-                    tiempoResidencia: document.getElementById('tiempo-residencia').value
-                };
-                
-                if (residenteEditando) {
-                    // Actualizar
-                    if (residenteEditando.id) {
-                        await window.updateDoc(window.doc(window.db, 'residentes', residenteEditando.id), residente);
-                    }
-                    const index = residentes.findIndex(r => r.id === residenteEditando.id || r.cedula === residenteEditando.cedula);
-                    residentes[index] = { ...residente, id: residenteEditando.id };
-                    mostrarNotificacion('Residente actualizado correctamente', 'success');
-                } else {
-                    // Verificar que no exista la cédula
-                    if (residentes.find(r => r.cedula === cedula)) {
-                        mostrarNotificacion('Ya existe un residente con esta cédula', 'error');
-                        mostrarLoading(false);
-                        return;
-                    }
-                    
-                    // Crear nuevo
-                    const docRef = await window.addDoc(window.collection(window.db, 'residentes'), residente);
-                    residentes.push({ ...residente, id: docRef.id });
-                    mostrarNotificacion('Residente agregado correctamente', 'success');
-                }
-                
-                await cargarResidentes();
-                cerrarModal('modal-residente');
-                residenteEditando = null;
-            } catch (error) {
-                console.error('Error al guardar residente:', error);
-                mostrarNotificacion('Error al guardar el residente', 'error');
+            let cedula = document.getElementById('cedula-residente').value.trim();
+            
+            if (!cedula.startsWith('V-') && /^\d+$/.test(cedula)) {
+                cedula = 'V-' + cedula;
             }
+            
+            const residente = {
+                cedula: cedula,
+                nombre: document.getElementById('nombre-residente').value,
+                nacionalidad: document.getElementById('nacionalidad-residente').value,
+                estadoCivil: document.getElementById('estado-civil-residente').value,
+                casa: document.getElementById('casa-residente').value,
+                tiempoResidencia: document.getElementById('tiempo-residencia').value
+            };
+            
+            if (residenteEditando) {
+                // Actualizar
+                const { error } = await supabase
+                    .from('residentes')
+                    .update(residente)
+                    .eq('id', residenteEditando.id);
+                
+                if (error) throw error;
+                
+                const index = residentes.findIndex(r => r.id === residenteEditando.id);
+                residentes[index] = { ...residente, id: residenteEditando.id };
+                mostrarNotificacion('Residente actualizado correctamente', 'success');
+            } else {
+                // Verificar que no exista la cédula
+                if (residentes.find(r => r.cedula === cedula)) {
+                    mostrarNotificacion('Ya existe un residente con esta cédula', 'error');
+                    mostrarLoading(false);
+                    return false;
+                }
+                
+                // Crear nuevo
+                const { data, error } = await supabase
+                    .from('residentes')
+                    .insert(residente);
+                
+                if (error) throw error;
+                
+                residente.id = data.id;
+                residentes.push(residente);
+                mostrarNotificacion('Residente agregado correctamente', 'success');
+            }
+            
+            await cargarResidentes();
+            cerrarModal('modal-residente');
+            residenteEditando = null;
             mostrarLoading(false);
+            
+            return false;
         }
 
         async function eliminarResidente(id) {
@@ -1546,13 +1686,14 @@
             
             mostrarLoading(true);
             try {
-                if (id && typeof id === 'string') {
-                    await window.deleteDoc(window.doc(window.db, 'residentes', id));
-                    residentes = residentes.filter(r => r.id !== id);
-                } else {
-                    residentes.splice(parseInt(id), 1);
-                }
+                const { error } = await supabase
+                    .from('residentes')
+                    .delete()
+                    .eq('id', id);
                 
+                if (error) throw error;
+                
+                residentes = residentes.filter(r => r.id !== id);
                 await cargarResidentes();
                 mostrarNotificacion('Residente eliminado correctamente', 'success');
             } catch (error) {
@@ -1566,17 +1707,24 @@
         async function cargarEventos() {
             const listaEventos = document.getElementById('lista-eventos');
             
-            if (eventos.length === 0) {
-                listaEventos.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">No hay eventos programados</p>';
+            // Filtrar eventos futuros (no pasados)
+            const eventosFuturos = eventos.filter(evento => {
+                const eventoDateTime = new Date(`${evento.fecha}T${evento.hora}`);
+                const ahora = new Date();
+                return eventoDateTime > ahora;
+            });
+            
+            if (eventosFuturos.length === 0) {
+                listaEventos.innerHTML = '<p style="text-align: center; color: var(--text-light); grid-column: 1/-1;">No hay eventos programados</p>';
                 return;
             }
             
-            listaEventos.innerHTML = eventos.map(evento => `
+            listaEventos.innerHTML = eventosFuturos.map(evento => `
                 <div class="event-card">
                     <div class="event-date">${formatearFecha(evento.fecha)} - ${evento.hora}</div>
-                    <h4 style="color: #e91e63; margin: 10px 0;">${evento.titulo}</h4>
-                    <p style="color: #666; font-size: 13px; margin: 10px 0;">${evento.descripcion || 'Sin descripción'}</p>
-                    ${evento.lugar ? `<p style="color: #888; font-size: 12px;"><strong>📍 ${evento.lugar}</strong></p>` : ''}
+                    <h4 style="color: var(--primary-color); margin: 10px 0;">${evento.titulo}</h4>
+                    <p style="color: var(--text-light); font-size: 13px; margin: 10px 0;">${evento.descripcion || 'Sin descripción'}</p>
+                    ${evento.lugar ? `<p style="color: var(--text-light); font-size: 12px;"><strong>📍 ${evento.lugar}</strong></p>` : ''}
                     ${sesionActiva ? `<div style="margin-top: 15px;">
                         <button class="btn-secondary" onclick="mostrarFormularioEvento(${JSON.stringify(evento).replace(/"/g, '&quot;')})">Editar</button>
                         <button class="btn-danger" onclick="eliminarEvento('${evento.id}')">Eliminar</button>
@@ -1585,40 +1733,47 @@
             `).join('');
         }
 
-        async function manejarEvento(e) {
-            e.preventDefault();
+        async function manejarEvento(event) {
+            event.preventDefault();
             mostrarLoading(true);
             
-            try {
-                const evento = {
-                    titulo: document.getElementById('titulo-evento').value,
-                    fecha: document.getElementById('fecha-evento').value,
-                    hora: document.getElementById('hora-evento').value,
-                    descripcion: document.getElementById('descripcion-evento').value,
-                    lugar: document.getElementById('lugar-evento').value
-                };
+            const evento = {
+                titulo: document.getElementById('titulo-evento').value,
+                fecha: document.getElementById('fecha-evento').value,
+                hora: document.getElementById('hora-evento').value,
+                descripcion: document.getElementById('descripcion-evento').value,
+                lugar: document.getElementById('lugar-evento').value
+            };
+            
+            if (eventoEditando) {
+                const { error } = await supabase
+                    .from('eventos')
+                    .update(evento)
+                    .eq('id', eventoEditando.id);
                 
-                if (eventoEditando) {
-                    if (eventoEditando.id) {
-                        await window.updateDoc(window.doc(window.db, 'eventos', eventoEditando.id), evento);
-                    }
-                    const index = eventos.findIndex(e => e.id === eventoEditando.id);
-                    eventos[index] = { ...evento, id: eventoEditando.id };
-                    mostrarNotificacion('Evento actualizado correctamente', 'success');
-                } else {
-                    const docRef = await window.addDoc(window.collection(window.db, 'eventos'), evento);
-                    eventos.push({ ...evento, id: docRef.id });
-                    mostrarNotificacion('Evento creado correctamente', 'success');
-                }
+                if (error) throw error;
                 
-                await cargarEventos();
-                cerrarModal('modal-evento');
-                eventoEditando = null;
-            } catch (error) {
-                console.error('Error al guardar evento:', error);
-                mostrarNotificacion('Error al guardar el evento', 'error');
+                const index = eventos.findIndex(e => e.id === eventoEditando.id);
+                eventos[index] = { ...evento, id: eventoEditando.id };
+                mostrarNotificacion('Evento actualizado correctamente', 'success');
+            } else {
+                const { data, error } = await supabase
+                    .from('eventos')
+                    .insert(evento);
+                
+                if (error) throw error;
+                
+                evento.id = data.id;
+                eventos.push(evento);
+                mostrarNotificacion('Evento creado correctamente', 'success');
             }
+            
+            await cargarEventos();
+            cerrarModal('modal-evento');
+            eventoEditando = null;
             mostrarLoading(false);
+            
+            return false;
         }
 
         async function eliminarEvento(id) {
@@ -1626,7 +1781,13 @@
             
             mostrarLoading(true);
             try {
-                await window.deleteDoc(window.doc(window.db, 'eventos', id));
+                const { error } = await supabase
+                    .from('eventos')
+                    .delete()
+                    .eq('id', id);
+                
+                if (error) throw error;
+                
                 eventos = eventos.filter(e => e.id !== id);
                 await cargarEventos();
                 mostrarNotificacion('Evento eliminado correctamente', 'success');
@@ -1642,62 +1803,65 @@
             const censosDiv = document.getElementById('censos-disponibles');
             
             if (censos.length === 0) {
-                censosDiv.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">No hay censos disponibles</p>';
+                censosDiv.innerHTML = '<p style="text-align: center; color: var(--text-light); grid-column: 1/-1;">No hay censos disponibles</p>';
                 return;
             }
             
             censosDiv.innerHTML = censos.map(censo => `
-                <div class="censo-card" onclick="verCenso('${censo.id}')">
+                <div class="event-card" onclick="verCenso('${censo.id}')" style="position: relative;">
                     ${sesionActiva ? `<div class="censo-card-actions">
                         <button class="btn-icon edit" onclick="event.stopPropagation(); editarCenso('${censo.id}')" title="Editar">✏️</button>
                         <button class="btn-icon delete" onclick="event.stopPropagation(); eliminarCenso('${censo.id}')" title="Eliminar">🗑️</button>
                     </div>` : ''}
-                    <h3>${censo.nombre}</h3>
-                    <p>Tipo: ${censo.tipo.charAt(0).toUpperCase() + censo.tipo.slice(1)}</p>
-                    <p>Fecha: ${formatearFecha(censo.fecha)}</p>
-                    ${censo.descripcion ? `<p>Descripción: ${censo.descripcion}</p>` : ''}
-                    <div class="censo-info-badge">
+                    <h4 style="color: var(--primary-color); margin: 10px 0;">${censo.nombre}</h4>
+                    <p style="color: var(--text-light); font-size: 13px; margin: 10px 0;">Tipo: ${censo.tipo.charAt(0).toUpperCase() + censo.tipo.slice(1)}</p>
+                    <p style="color: var(--text-light); font-size: 13px; margin: 10px 0;">Fecha: ${formatearFecha(censo.fecha)}</p>
+                    ${censo.descripcion ? `<p style="color: var(--text-light); font-size: 13px; margin: 10px 0;">Descripción: ${censo.descripcion}</p>` : ''}
+                    <div class="event-date">
                         ${Array.isArray(censo.datos) ? censo.datos.length : Object.keys(censo.datos || {}).length} registros
                     </div>
                 </div>
             `).join('');
         }
 
-        async function manejarCenso(e) {
-            e.preventDefault();
+        async function manejarCenso(event) {
+            event.preventDefault();
             mostrarLoading(true);
             
-            try {
-                const campos = document.querySelectorAll('.campo-censo');
-                const datos = [];
-                
-                campos.forEach(campo => {
-                    const nombre = campo.querySelector('.campo-nombre').value.trim();
-                    const valor = campo.querySelector('.campo-valor').value.trim();
-                    if (nombre && valor) {
-                        datos.push({ [nombre]: valor });
-                    }
-                });
-                
-                const censo = {
-                    nombre: document.getElementById('nombre-censo').value,
-                    tipo: document.getElementById('tipo-censo').value,
-                    descripcion: document.getElementById('descripcion-censo').value,
-                    fecha: new Date().toISOString().split('T')[0],
-                    datos: datos
-                };
-                
-                const docRef = await window.addDoc(window.collection(window.db, 'censos'), censo);
-                censos.push({ ...censo, id: docRef.id });
-                
-                await cargarCensos();
-                cerrarModal('modal-crear-censo');
-                mostrarNotificacion('Censo creado correctamente', 'success');
-            } catch (error) {
-                console.error('Error al crear censo:', error);
-                mostrarNotificacion('Error al crear el censo', 'error');
-            }
+            const campos = document.querySelectorAll('.campo-censo');
+            const datos = [];
+            
+            campos.forEach(campo => {
+                const nombre = campo.querySelector('.campo-nombre').value.trim();
+                const valor = campo.querySelector('.campo-valor').value.trim();
+                if (nombre && valor) {
+                    datos.push({ [nombre]: valor });
+                }
+            });
+            
+            const censo = {
+                nombre: document.getElementById('nombre-censo').value,
+                tipo: document.getElementById('tipo-censo').value,
+                descripcion: document.getElementById('descripcion-censo').value,
+                fecha: new Date().toISOString().split('T')[0],
+                datos: datos
+            };
+            
+            const { data, error } = await supabase
+                .from('censos')
+                .insert(censo);
+            
+            if (error) throw error;
+            
+            censo.id = data.id;
+            censos.push(censo);
+            
+            await cargarCensos();
+            cerrarModal('modal-crear-censo');
+            mostrarNotificacion('Censo creado correctamente', 'success');
             mostrarLoading(false);
+            
+            return false;
         }
 
         function verCenso(id) {
@@ -1719,7 +1883,7 @@
                 const keys = Object.keys(censo.datos[0]);
                 contenido += `
                     <div style="overflow-x: auto;">
-                        <table class="tabla-censo">
+                        <table class="residents-table">
                             <thead><tr>
                                 ${keys.map(key => `<th>${key.charAt(0).toUpperCase() + key.slice(1)}</th>`).join('')}
                             </tr></thead>
@@ -1730,7 +1894,7 @@
                     </div>
                 `;
             } else {
-                contenido += '<p style="text-align: center; color: #666;">No hay datos disponibles</p>';
+                contenido += '<p style="text-align: center; color: var(--text-light);">No hay datos disponibles</p>';
             }
             
             document.getElementById('contenido-censo').innerHTML = contenido;
@@ -1792,7 +1956,12 @@
                     datos: datos
                 };
                 
-                await window.updateDoc(window.doc(window.db, 'censos', censoEditando.id), censoActualizado);
+                const { error } = await supabase
+                    .from('censos')
+                    .update(censoActualizado)
+                    .eq('id', censoEditando.id);
+                
+                if (error) throw error;
                 
                 const index = censos.findIndex(c => c.id === censoEditando.id);
                 censos[index] = { ...censos[index], ...censoActualizado };
@@ -1813,7 +1982,13 @@
             
             mostrarLoading(true);
             try {
-                await window.deleteDoc(window.doc(window.db, 'censos', id));
+                const { error } = await supabase
+                    .from('censos')
+                    .delete()
+                    .eq('id', id);
+                
+                if (error) throw error;
+                
                 censos = censos.filter(c => c.id !== id);
                 await cargarCensos();
                 mostrarNotificacion('Censo eliminado correctamente', 'success');
@@ -1842,59 +2017,66 @@
                 <tr>
                     <td>${ejecutivo.usuario}</td>
                     <td>${ejecutivo.nombre}</td>
-                    <td><span style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: ${ejecutivo.rol === 'admin' ? '#e91e63' : '#4CAF50'}; color: white;">${ejecutivo.rol.toUpperCase()}</span></td>
-                    <td><span style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: ${ejecutivo.activo ? '#4CAF50' : '#f44336'}; color: white;">${ejecutivo.activo ? 'Activo' : 'Inactivo'}</span></td>
+                    <td><span style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: ${ejecutivo.rol === 'admin' ? 'var(--primary-color)' : 'var(--secondary-color)'}; color: white;">${ejecutivo.rol.toUpperCase()}</span></td>
+                    <td><span style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: ${ejecutivo.activo ? 'var(--secondary-color)' : '#f44336'}; color: white;">${ejecutivo.activo ? 'Activo' : 'Inactivo'}</span></td>
                     <td>
                         <button class="btn-secondary" style="margin-right: 5px; padding: 6px 12px; font-size: 11px;" 
                                 onclick="mostrarFormularioEjecutivo(${JSON.stringify(ejecutivo).replace(/"/g, '&quot;')})">Editar</button>
                         ${ejecutivo.usuario !== 'admin' ? `<button class="btn-danger" style="padding: 6px 12px; font-size: 11px;" 
-                                onclick="toggleEjecutivo('${ejecutivo.id || index}')">${ejecutivo.activo ? 'Desactivar' : 'Activar'}</button>` : ''}
+                                onclick="toggleEjecutivo('${ejecutivo.id}')">${ejecutivo.activo ? 'Desactivar' : 'Activar'}</button>` : ''}
                     </td>
                 </tr>
             `).join('');
         }
 
-        async function manejarEjecutivo(e) {
-            e.preventDefault();
+        async function manejarEjecutivo(event) {
+            event.preventDefault();
             mostrarLoading(true);
             
-            try {
-                const usuario = document.getElementById('usuario-ejecutivo').value.trim();
-                const ejecutivo = {
-                    usuario: usuario,
-                    password: document.getElementById('password-ejecutivo').value,
-                    nombre: document.getElementById('nombre-ejecutivo').value,
-                    rol: document.getElementById('rol-ejecutivo').value,
-                    activo: true
-                };
+            const usuario = document.getElementById('usuario-ejecutivo').value.trim();
+            const ejecutivo = {
+                usuario: usuario,
+                password: document.getElementById('password-ejecutivo').value,
+                nombre: document.getElementById('nombre-ejecutivo').value,
+                rol: document.getElementById('rol-ejecutivo').value,
+                activo: true
+            };
+            
+            if (ejecutivoEditando) {
+                const { error } = await supabase
+                    .from('ejecutivos')
+                    .update(ejecutivo)
+                    .eq('id', ejecutivoEditando.id);
                 
-                if (ejecutivoEditando) {
-                    if (ejecutivoEditando.id) {
-                        await window.updateDoc(window.doc(window.db, 'ejecutivos', ejecutivoEditando.id), ejecutivo);
-                    }
-                    const index = ejecutivos.findIndex(e => e.id === ejecutivoEditando.id || e.usuario === ejecutivoEditando.usuario);
-                    ejecutivos[index] = { ...ejecutivo, id: ejecutivoEditando.id };
-                    mostrarNotificacion('Ejecutivo actualizado correctamente', 'success');
-                } else {
-                    if (ejecutivos.find(e => e.usuario === usuario)) {
-                        mostrarNotificacion('Ya existe un ejecutivo con este usuario', 'error');
-                        mostrarLoading(false);
-                        return;
-                    }
-                    
-                    const docRef = await window.addDoc(window.collection(window.db, 'ejecutivos'), ejecutivo);
-                    ejecutivos.push({ ...ejecutivo, id: docRef.id });
-                    mostrarNotificacion('Ejecutivo agregado correctamente', 'success');
+                if (error) throw error;
+                
+                const index = ejecutivos.findIndex(e => e.id === ejecutivoEditando.id || e.usuario === ejecutivoEditando.usuario);
+                ejecutivos[index] = { ...ejecutivo, id: ejecutivoEditando.id };
+                mostrarNotificacion('Ejecutivo actualizado correctamente', 'success');
+            } else {
+                if (ejecutivos.find(e => e.usuario === usuario)) {
+                    mostrarNotificacion('Ya existe un ejecutivo con este usuario', 'error');
+                    mostrarLoading(false);
+                    return false;
                 }
                 
-                await cargarEjecutivos();
-                cerrarModal('modal-ejecutivo');
-                ejecutivoEditando = null;
-            } catch (error) {
-                console.error('Error al guardar ejecutivo:', error);
-                mostrarNotificacion('Error al guardar el ejecutivo', 'error');
+                const { data, error } = await supabase
+                    .from('ejecutivos')
+                    .insert(ejecutivo);
+                
+                if (error) throw error;
+                
+                ejecutivo.id = data.id;
+                ejecutivos.push(ejecutivo);
+                mostrarNotificacion('Ejecutivo agregado correctamente', 'success');
             }
+            
+            await cargarEjecutivos();
+            cerrarModal('modal-ejecutivo');
+            ejecutivoEditando = null;
             mostrarLoading(false);
+            
+            return false;
         }
 
         async function toggleEjecutivo(id) {
@@ -1904,16 +2086,19 @@
                 if (ejecutivo) {
                     ejecutivo.activo = !ejecutivo.activo;
                     
-                    if (ejecutivo.id) {
-                        await window.updateDoc(window.doc(window.db, 'ejecutivos', ejecutivo.id), { activo: ejecutivo.activo });
-                    }
+                    const { error } = await supabase
+                        .from('ejecutivos')
+                        .update({ activo: ejecutivo.activo })
+                        .eq('id', ejecutivo.id);
+                    
+                    if (error) throw error;
                     
                     await cargarEjecutivos();
-                    mostrarNotificacion(`Ejecutivo ${ejecutivo.activo ? 'activado' : 'desactivado'} correctamente`, 'success');
+                    mostrarNotificación(`Ejecutivo ${ejecutivo.activo ? 'activado' : 'desactivado'} correctamente`, 'success');
                 }
             } catch (error) {
                 console.error('Error al cambiar estado del ejecutivo:', error);
-                mostrarNotificacion('Error al cambiar el estado del ejecutivo', 'error');
+                mostrarNotificación('Error al cambiar el estado del ejecutivo', 'error');
             }
             mostrarLoading(false);
         }
@@ -2053,9 +2238,9 @@
         function mostrarLoading(mostrar) {
             const overlay = document.getElementById('loading-overlay');
             if (mostrar) {
-                overlay.style.display = 'flex';
+                overlay.classList.add('active');
             } else {
-                overlay.style.display = 'none';
+                overlay.classList.remove('active');
             }
         }
 
@@ -2182,15 +2367,12 @@
                 try {
                     configuracion.gentilicio = nuevoGentilicio;
                     
-                    // Guardar en Firebase
-                    const configRef = window.collection(window.db, 'configuracion');
-                    const snapshot = await window.getDocs(configRef);
+                    const { error } = await supabase
+                        .from('configuracion')
+                        .upsert({ gentilicio: nuevoGentilicio })
+                        .eq('id', 1);
                     
-                    if (snapshot.empty) {
-                        await window.addDoc(configRef, configuracion);
-                    } else {
-                        await window.updateDoc(window.doc(window.db, 'configuracion', snapshot.docs[0].id), configuracion);
-                    }
+                    if (error) throw error;
                     
                     mostrarNotificacion('Gentilicio actualizado correctamente', 'success');
                 } catch (error) {
@@ -2227,8 +2409,14 @@
                                 ]
                             };
                             
-                            const docRef = await window.addDoc(window.collection(window.db, 'censos'), nuevoCenso);
-                            censos.push({ ...nuevoCenso, id: docRef.id });
+                            const { data, error } = await supabase
+                                .from('censos')
+                                .insert(nuevoCenso);
+                            
+                            if (error) throw error;
+                            
+                            nuevoCenso.id = data.id;
+                            censos.push(nuevoCenso);
                             await cargarCensos();
                             mostrarNotificacion('Censo importado exitosamente', 'success');
                         }
@@ -2249,6 +2437,21 @@
         function gestionarCensos() {
             showSection('censos');
             cerrarModal('modal-censo');
+        }
+
+        // Función para alternar entre tema claro y oscuro
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('theme-icon');
+            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         }
     </script>
 </body>
