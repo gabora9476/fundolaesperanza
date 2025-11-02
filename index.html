@@ -383,28 +383,153 @@ font-weight: 600;
 animation: slideIn 0.5s ease-out;
 }
 
-.censo-actions {
-margin-top: 15px;
-display: flex;
-gap: 10px;
-flex-wrap: wrap;
+.censo-card {
+position: relative;
+background: linear-gradient(135deg, #e91e63, #f06292);
+color: white;
+cursor: pointer;
+transition: all 0.3s ease;
+border-radius: 15px;
+padding: 20px;
+overflow: hidden;
 }
 
-.btn-edit-censo {
-background: #ffc107;
-color: #333;
-border: none;
-padding: 8px 16px;
-border-radius: 6px;
-cursor: pointer;
+.censo-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 15px 35px rgba(233, 30, 99, 0.3);
+}
+
+.censo-card h3 {
+margin-bottom: 15px;
+font-size: 18px;
+}
+
+.censo-card p {
+margin-bottom: 10px;
+opacity: 0.9;
+font-size: 14px;
+}
+
+.censo-info-badge {
+background: rgba(255,255,255,0.2);
+padding: 8px 12px;
+border-radius: 8px;
 font-size: 12px;
 font-weight: 600;
-transition: all 0.3s ease;
+display: inline-block;
+margin-top: 10px;
 }
 
-.btn-edit-censo:hover {
-background: #ffb300;
-transform: translateY(-1px);
+.censo-card-actions {
+position: absolute;
+top: 15px;
+right: 15px;
+display: flex;
+gap: 5px;
+}
+
+.btn-icon {
+width: 32px;
+height: 32px;
+border-radius: 6px;
+border: none;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+transition: all 0.2s ease;
+font-size: 14px;
+}
+
+.btn-icon:hover {
+transform: scale(1.1);
+}
+
+.btn-icon.edit {
+background: #ffc107;
+color: #333;
+}
+
+.btn-icon.delete {
+background: #dc3545;
+color: white;
+}
+
+.notification {
+position: fixed;
+top: 20px;
+right: 20px;
+padding: 15px 20px;
+border-radius: 8px;
+color: white;
+font-weight: 600;
+z-index: 10000;
+animation: slideInRight 0.3s ease-out;
+max-width: 300px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.notification.success {
+background: linear-gradient(135deg, #4CAF50, #45a049);
+}
+
+.notification.error {
+background: linear-gradient(135deg, #f44336, #e53935);
+}
+
+.notification.info {
+background: linear-gradient(135deg, #2196F3, #1976D2);
+}
+
+.tabla-censo {
+width: 100%;
+border-collapse: collapse;
+margin-top: 15px;
+background: white;
+border-radius: 8px;
+overflow: hidden;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.tabla-censo th,
+.tabla-censo td {
+padding: 10px 12px;
+text-align: left;
+border-bottom: 1px solid #e9ecef;
+font-size: 13px;
+}
+
+.tabla-censo th {
+background: #e91e63;
+color: white;
+font-weight: 600;
+}
+
+.tabla-censo tr:hover {
+background: rgba(233, 30, 99, 0.05);
+}
+
+.campo-censo, .dato-fila {
+display: flex;
+gap: 10px;
+margin-bottom: 10px;
+align-items: center;
+animation: slideIn 0.3s ease-out;
+}
+
+.dato-fila {
+padding: 10px;
+background: #f8f9fa;
+border-radius: 8px;
+border: 1px solid #e9ecef;
+}
+
+.dato-fila input {
+flex: 1;
+padding: 8px 12px;
+border: 1px solid #ddd;
+border-radius: 6px;
+background: white;
 }
 
 @keyframes fadeIn {
@@ -432,123 +557,41 @@ to { opacity: 1; transform: scale(1) translateY(0); }
 50% { transform: translateY(-20px) rotate(180deg); }
 }
 
+@keyframes slideInRight {
+from { transform: translateX(100%); opacity: 0; }
+to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
 @media (max-width: 768px) {
-.container {
-padding: 15px;
-}
-
-.logo {
-padding: 20px;
-}
-
-.logo h1 {
-font-size: 24px;
-}
-
-.nav-buttons {
-gap: 10px;
-}
-
-.nav-btn {
-padding: 10px 16px;
-font-size: 13px;
-}
-
-.card {
-padding: 20px;
-margin-bottom: 15px;
-}
-
-.grid {
-grid-template-columns: 1fr;
-gap: 15px;
-}
-
-.modal-content {
-margin: 20px;
-padding: 20px;
-width: calc(100% - 40px);
-}
-
-.certificate {
-padding: 20px;
-font-size: 14px;
-}
-
-.residents-table {
-font-size: 12px;
-}
-
-.residents-table th,
-.residents-table td {
-padding: 8px;
-}
-
-.censo-actions {
-flex-direction: column;
-}
+.container { padding: 15px; }
+.logo { padding: 20px; }
+.logo h1 { font-size: 24px; }
+.nav-buttons { gap: 10px; }
+.nav-btn { padding: 10px 16px; font-size: 13px; }
+.card { padding: 20px; margin-bottom: 15px; }
+.grid { grid-template-columns: 1fr; gap: 15px; }
+.modal-content { margin: 20px; padding: 20px; width: calc(100% - 40px); }
+.certificate { padding: 20px; font-size: 14px; }
+.residents-table { font-size: 12px; }
+.residents-table th, .residents-table td { padding: 8px; }
 }
 </style>
 
-<!-- Firebase Configuration -->
+<!-- Supabase Configuration -->
 <script type="module">
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-apiKey: "AIzaSyDAHtzN2bQcuaPZL7HAFKDetGx11SxQLig",
-authDomain: "fundole15.firebaseapp.com",
-projectId: "fundole15",
-storageBucket: "fundole15.firebasestorage.app",
-messagingSenderId: "1027977132139",
-appId: "1:1027977132139:web:d9eb092017b604389d192e",
-measurementId: "G-03TGBRNJCP"
-};
+const supabaseUrl = 'https://eorxvejwarymoacsasat.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVvcnh2ZWp3YXJ5bW9hY3Nhc2F0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM2OTEyODEsImV4cCI6MjA0OTI2NzI4MX0.xqE9nkf8GrfZp5qlAqaMqhXTKfcMkPuBqJxBsz9h8Qg'
+const supabase = createClient(supabaseUrl, supabaseKey)
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getFirestore(app);
-
-// Hacer disponibles globalmente
-window.db = db;
-window.firebaseApp = app;
-window.collection = collection;
-window.addDoc = addDoc;
-window.getDocs = getDocs;
-window.updateDoc = updateDoc;
-window.deleteDoc = deleteDoc;
-window.doc = doc;
-window.setDoc = setDoc;
-</script>
-
-<!-- PWA Manifest -->
-<script>
-// Crear el manifest dinámicamente
-const manifest = {
-"name": "Consejo Comunal Fundo La Esperanza",
-"short_name": "CC Fundo La Esperanza",
-"icons": [
-{"src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png"},
-{"src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png"}
-],
-"theme_color": "#e91e63",
-"background_color": "#ffffff",
-"display": "standalone",
-"start_url": "/",
-"scope": "/"
-};
-
-const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-const manifestURL = URL.createObjectURL(manifestBlob);
-
-const link = document.createElement('link');
-link.rel = 'manifest';
-link.href = manifestURL;
-document.head.appendChild(link);
+window.supabase = supabase
+console.log('✅ Supabase conectado correctamente')
 </script>
 </head>
 <body>
@@ -563,7 +606,7 @@ document.head.appendChild(link);
 <div class="logo">
 <h1>Consejo Comunal Fundo La Esperanza</h1>
 <p>Filas de Mariches - Municipio Sucre - Estado Miranda</p>
-<p style="font-size: 14px; margin-top: 10px;">Sistema Digital Comunitario</p>
+<p style="font-size: 14px; margin-top: 10px;">Sistema Digital Comunitario - Powered by Supabase 🚀</p>
 </div>
 </div>
 
@@ -575,6 +618,7 @@ document.head.appendChild(link);
 <button class="nav-btn" onclick="showSection('ejecutivo')" id="ejecutivo-btn" style="display: none;">👤 Panel Ejecutivo</button>
 <button class="nav-btn" onclick="cerrarSesion()" id="logout-btn" style="display: none;">🚪 Cerrar Sesión</button>
 </div>
+
 <!-- Sección Carta de Residencia -->
 <div id="residencia" class="content-section active">
 <div class="card">
@@ -602,7 +646,6 @@ Ingrese su cédula de identidad para generar su carta de residencia.
 <button class="btn-primary" onclick="mostrarFormularioEvento()">+ Crear Nuevo Evento</button>
 
 <div id="lista-eventos" class="grid" style="margin-top: 30px;">
-<!-- Los eventos se cargarán aquí dinámicamente -->
 </div>
 </div>
 </div>
@@ -616,7 +659,6 @@ Consulte los diferentes censos y estadísticas de la comunidad
 </p>
 
 <div id="censos-disponibles" class="grid">
-<!-- Los censos se cargarán aquí dinámicamente -->
 </div>
 </div>
 </div>
@@ -645,7 +687,8 @@ Consulte los diferentes censos y estadísticas de la comunidad
 <div id="mensaje-login"></div>
 
 <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #666; text-align: center;">
-<p><strong>Inicie sesion con su credencial de acceso:</strong></p>
+<p><strong>Credenciales por defecto:</strong></p>
+<p>Usuario: <code>admin</code> / Contraseña: <code>admin123</code></p>
 </div>
 </div>
 </div>
@@ -665,7 +708,6 @@ Bienvenido, <strong id="usuario-actual"></strong>
 <h3 style="margin-bottom: 15px;">👥 Gestión de Residentes</h3>
 <div style="margin-bottom: 15px;">
 <button class="btn-secondary" onclick="mostrarFormularioResidente()" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);">+ Agregar Residente</button>
-<button class="btn-secondary" onclick="importarExcel('residentes')" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);">📊 Importar Excel</button>
 </div>
 </div>
 
@@ -673,8 +715,6 @@ Bienvenido, <strong id="usuario-actual"></strong>
 <h3 style="margin-bottom: 15px;">📊 Sistema de Censos</h3>
 <div style="margin-bottom: 15px;">
 <button class="btn-secondary" onclick="mostrarFormularioCenso()" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);">+ Crear Censo</button>
-<button class="btn-secondary" onclick="importarExcel('censo')" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);">📊 Importar Censo</button>
-<button class="btn-secondary" onclick="gestionarCensos()" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);">⚙️ Gestionar</button>
 </div>
 </div>
 </div>
@@ -709,7 +749,6 @@ Bienvenido, <strong id="usuario-actual"></strong>
 </tr>
 </thead>
 <tbody id="tabla-ejecutivos">
-<!-- Los ejecutivos se cargarán aquí -->
 </tbody>
 </table>
 </div>
@@ -732,10 +771,8 @@ Bienvenido, <strong id="usuario-actual"></strong>
 </tr>
 </thead>
 <tbody id="tabla-residentes">
-<!-- Los residentes se cargarán aquí -->
 </tbody>
 </table>
-</div>
 </div>
 </div>
 </div>
@@ -744,7 +781,6 @@ Bienvenido, <strong id="usuario-actual"></strong>
 <div id="modal-carta" class="modal">
 <div class="modal-content">
 <div class="certificate" id="carta-contenido">
-<!-- El contenido de la carta se generará aquí -->
 </div>
 <div style="text-align: center; margin-top: 20px;">
 <button class="btn-primary" onclick="imprimirCarta()">🖨️ Imprimir</button>
@@ -820,7 +856,7 @@ Bienvenido, <strong id="usuario-actual"></strong>
 <label for="estado-civil-residente">Estado Civil</label>
 <select id="estado-civil-residente" class="form-control">
 <option value="Soltero(a)">Soltero(a)</option>
-<option value="Casado(a)">Casado(a)</option>
+<option value=">Casado(a)</option>
 <option value="Divorciado(a)">Divorciado(a)</option>
 <option value="Viudo(a)">Viudo(a)</option>
 <option value="Unión Libre">Unión Libre</option>
@@ -844,6 +880,7 @@ Bienvenido, <strong id="usuario-actual"></strong>
 </form>
 </div>
 </div>
+
 <!-- Modal para Ejecutivos -->
 <div id="modal-ejecutivo" class="modal">
 <div class="modal-content">
@@ -885,7 +922,6 @@ Bienvenido, <strong id="usuario-actual"></strong>
 <div class="modal-content" style="max-width: 800px; max-height: 90vh;">
 <h3 style="color: #e91e63; margin-bottom: 20px;" id="titulo-censo">📊 Datos del Censo</h3>
 <div id="contenido-censo" style="max-height: 60vh; overflow-y: auto;">
-<!-- El contenido del censo se cargará aquí -->
 </div>
 <div style="text-align: center; margin-top: 20px;">
 <button class="btn-primary" onclick="exportarCenso()">📥 Exportar</button>
@@ -894,10 +930,10 @@ Bienvenido, <strong id="usuario-actual"></strong>
 </div>
 </div>
 
-<!-- Modal para Crear/Editar Censo -->
+<!-- Modal para Crear Censo -->
 <div id="modal-crear-censo" class="modal">
 <div class="modal-content" style="max-width: 600px;">
-<h3 style="color: #e91e63; margin-bottom: 20px;" id="titulo-crear-censo">📊 Crear/Editar Censo</h3>
+<h3 style="color: #e91e63; margin-bottom: 20px;">📊 Crear Censo</h3>
 <form id="form-censo">
 <div class="form-group">
 <label for="nombre-censo">Nombre del Censo</label>
@@ -926,10 +962,10 @@ Bienvenido, <strong id="usuario-actual"></strong>
 <div class="form-group">
 <label>Datos del Censo</label>
 <div id="campos-censo">
-<div class="campo-censo" style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
-<input type="text" class="form-control campo-nombre" placeholder="Nombre del campo" style="flex: 1;">
+<div class="campo-censo">
+<input type="text" class="form-control campo-nombre" placeholder="Campo" style="flex: 1;">
 <input type="text" class="form-control campo-valor" placeholder="Valor" style="flex: 1;">
-<button type="button" class="btn-danger" onclick="eliminarCampoCenso(this)" style="padding: 8px 12px;">🗑️</button>
+<button type="button" class="btn-danger" onclick="eliminarCampoCenso(this)">🗑️</button>
 </div>
 </div>
 <button type="button" class="btn-secondary" onclick="agregarCampoCenso()" style="margin-top: 10px;">+ Agregar Campo</button>
@@ -943,7 +979,7 @@ Bienvenido, <strong id="usuario-actual"></strong>
 </div>
 </div>
 
-<!-- Modal para Editar Datos de Censo -->
+<!-- Modal para Editar Censo -->
 <div id="modal-editar-censo" class="modal">
 <div class="modal-content" style="max-width: 700px; max-height: 90vh;">
 <h3 style="color: #e91e63; margin-bottom: 20px;">✏️ Editar Datos del Censo</h3>
@@ -975,7 +1011,6 @@ Bienvenido, <strong id="usuario-actual"></strong>
 <div class="form-group">
 <label>Datos del Censo</label>
 <div id="datos-censo-edit">
-<!-- Los datos editables se cargarán aquí -->
 </div>
 <button type="button" class="btn-secondary" onclick="agregarFilaDatos()" style="margin-top: 10px;">+ Agregar Fila</button>
 </div>
@@ -997,207 +1032,6 @@ Bienvenido, <strong id="usuario-actual"></strong>
 </div>
 </div>
 
-<style>
-@keyframes spin {
-0% { transform: rotate(0deg); }
-100% { transform: rotate(360deg); }
-}
-
-.campo-censo {
-animation: slideIn 0.3s ease-out;
-}
-
-.dato-fila {
-display: flex;
-gap: 10px;
-margin-bottom: 10px;
-align-items: center;
-padding: 10px;
-background: #f8f9fa;
-border-radius: 8px;
-border: 1px solid #e9ecef;
-}
-
-.dato-fila input {
-flex: 1;
-padding: 8px 12px;
-border: 1px solid #ddd;
-border-radius: 6px;
-background: white;
-}
-
-.dato-fila button {
-padding: 6px 10px;
-font-size: 12px;
-}
-
-.campo-censo input:focus,
-.dato-fila input:focus {
-outline: none;
-border-color: #e91e63;
-box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.1);
-}
-
-.tabla-censo {
-width: 100%;
-border-collapse: collapse;
-margin-top: 15px;
-background: white;
-border-radius: 8px;
-overflow: hidden;
-box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.tabla-censo th,
-.tabla-censo td {
-padding: 10px 12px;
-text-align: left;
-border-bottom: 1px solid #e9ecef;
-font-size: 13px;
-}
-
-.tabla-censo th {
-background: #e91e63;
-color: white;
-font-weight: 600;
-}
-
-.tabla-censo tr:hover {
-background: rgba(233, 30, 99, 0.05);
-}
-
-.tabla-censo tr:last-child td {
-border-bottom: none;
-}
-
-.censo-card-actions {
-position: absolute;
-top: 15px;
-right: 15px;
-display: flex;
-gap: 5px;
-}
-
-.censo-card {
-position: relative;
-background: linear-gradient(135deg, #e91e63, #f06292);
-color: white;
-cursor: pointer;
-transition: all 0.3s ease;
-border-radius: 15px;
-padding: 20px;
-overflow: hidden;
-}
-
-.censo-card:hover {
-transform: translateY(-5px);
-box-shadow: 0 15px 35px rgba(233, 30, 99, 0.3);
-}
-
-.censo-card h3 {
-margin-bottom: 15px;
-font-size: 18px;
-}
-
-.censo-card p {
-margin-bottom: 10px;
-opacity: 0.9;
-font-size: 14px;
-}
-
-.censo-info-badge {
-background: rgba(255,255,255,0.2);
-padding: 8px 12px;
-border-radius: 8px;
-font-size: 12px;
-font-weight: 600;
-display: inline-block;
-margin-top: 10px;
-}
-
-.btn-icon {
-width: 32px;
-height: 32px;
-border-radius: 6px;
-border: none;
-display: flex;
-align-items: center;
-justify-content: center;
-cursor: pointer;
-transition: all 0.2s ease;
-font-size: 14px;
-}
-
-.btn-icon:hover {
-transform: scale(1.1);
-}
-
-.btn-icon.edit {
-background: #ffc107;
-color: #333;
-}
-
-.btn-icon.delete {
-background: #dc3545;
-color: white;
-}
-
-.btn-icon.edit:hover {
-background: #ffb300;
-}
-
-.btn-icon.delete:hover {
-background: #c82333;
-}
-
-.notification {
-position: fixed;
-top: 20px;
-right: 20px;
-padding: 15px 20px;
-border-radius: 8px;
-color: white;
-font-weight: 600;
-z-index: 10000;
-animation: slideInRight 0.3s ease-out;
-max-width: 300px;
-box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.notification.success {
-background: linear-gradient(135deg, #4CAF50, #45a049);
-}
-
-.notification.error {
-background: linear-gradient(135deg, #f44336, #e53935);
-}
-
-.notification.info {
-background: linear-gradient(135deg, #2196F3, #1976D2);
-}
-
-@keyframes slideInRight {
-from {
-transform: translateX(100%);
-opacity: 0;
-}
-to {
-transform: translateX(0);
-opacity: 1;
-}
-}
-
-@keyframes slideOutRight {
-from {
-transform: translateX(0);
-opacity: 1;
-}
-to {
-transform: translateX(100%);
-opacity: 0;
-}
-}
-</style>
 <script>
 // Variables globales
 let residentes = [];
@@ -1211,1045 +1045,1034 @@ let residenteEditando = null;
 let ejecutivoEditando = null;
 let censoEditando = null;
 
-// Inicialización cuando se carga la página
+// Inicialización
 document.addEventListener('DOMContentLoaded', function() {
-inicializarSistema();
+    inicializarSistema();
 });
 
 async function inicializarSistema() {
-mostrarLoading(true);
-try {
-// Cargar datos iniciales desde Firebase
-await cargarDatosIniciales();
-
-// Configurar eventos de formularios
-configurarEventListeners();
-
-// Cargar datos en las interfaces
-await cargarEventos();
-await cargarResidentes();
-await cargarCensos();
-verificarSesion();
-
-mostrarNotificacion('Sistema inicializado correctamente', 'success');
-} catch (error) {
-console.error('Error al inicializar:', error);
-mostrarNotificacion('Error al cargar datos del sistema', 'error');
-cargarDatosEjemplo(); // Cargar datos de ejemplo si falla Firebase
-}
-mostrarLoading(false);
+    mostrarLoading(true);
+    try {
+        await cargarDatosIniciales();
+        configurarEventListeners();
+        await cargarEventos();
+        await cargarResidentes();
+        await cargarCensos();
+        verificarSesion();
+        mostrarNotificacion('Sistema inicializado correctamente ✅', 'success');
+    } catch (error) {
+        console.error('Error al inicializar:', error);
+        mostrarNotificacion('Error al cargar datos del sistema', 'error');
+    }
+    mostrarLoading(false);
 }
 
 async function cargarDatosIniciales() {
-try {
-// Cargar ejecutivos
-const ejecutivosSnapshot = await window.getDocs(window.collection(window.db, 'ejecutivos'));
-ejecutivos = ejecutivosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    try {
+        const { data: ejecutivosData, error: ejecutivosError } = await window.supabase
+            .from('ejecutivos')
+            .select('*');
+        
+        if (ejecutivosError) throw ejecutivosError;
+        ejecutivos = ejecutivosData || [];
 
-if (ejecutivos.length === 0) {
-// Crear ejecutivos por defecto
-await crearEjecutivosPorDefecto();
-}
+        const { data: residentesData, error: residentesError } = await window.supabase
+            .from('residentes')
+            .select('*');
+        
+        if (residentesError) throw residentesError;
+        residentes = residentesData || [];
 
-// Cargar residentes
-const residentesSnapshot = await window.getDocs(window.collection(window.db, 'residentes'));
-residentes = residentesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const { data: eventosData, error: eventosError } = await window.supabase
+            .from('eventos')
+            .select('*')
+            .order('fecha', { ascending: true });
+        
+        if (eventosError) throw eventosError;
+        eventos = eventosData || [];
 
-// Cargar eventos
-const eventosSnapshot = await window.getDocs(window.collection(window.db, 'eventos'));
-eventos = eventosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const { data: censosData, error: censosError } = await window.supabase
+            .from('censos')
+            .select('*')
+            .order('created_at', { ascending: false });
+        
+        if (censosError) throw censosError;
+        censos = censosData || [];
 
-// Cargar censos
-const censosSnapshot = await window.getDocs(window.collection(window.db, 'censos'));
-censos = censosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const { data: configData, error: configError } = await window.supabase
+            .from('configuracion')
+            .select('*')
+            .limit(1);
+        
+        if (configError) throw configError;
+        if (configData && configData.length > 0) {
+            configuracion = configData[0];
+        }
 
-// Cargar configuración
-const configSnapshot = await window.getDocs(window.collection(window.db, 'configuracion'));
-if (!configSnapshot.empty) {
-configuracion = configSnapshot.docs[0].data();
-}
-} catch (error) {
-console.error('Error cargando datos de Firebase:', error);
-throw error;
-}
-}
-
-async function crearEjecutivosPorDefecto() {
-const ejecutivosDefecto = [
-{
-usuario: 'admin',
-password: 'admin123',
-nombre: 'Pablo Ortega',
-rol: 'admin',
-activo: true
-},
-{
-usuario: 'ejecutivo',
-password: 'exec123',
-nombre: 'Yamilet Rangel',
-rol: 'ejecutivo',
-activo: true
-}
-];
-
-for (const ejecutivo of ejecutivosDefecto) {
-await window.addDoc(window.collection(window.db, 'ejecutivos'), ejecutivo);
-}
-
-ejecutivos = ejecutivosDefecto;
-}
-
-function cargarDatosEjemplo() {
-// Datos de ejemplo si Firebase falla
-residentes = [
-{
-id: '1',
-cedula: 'V-13711426',
-nombre: 'María García Pérez',
-nacionalidad: 'Venezolana',
-estadoCivil: 'Casado(a)',
-casa: '15',
-tiempoResidencia: '3 años'
-},
-{
-id: '2',
-cedula: 'V-10542222',
-nombre: 'José Rodríguez López',
-nacionalidad: 'Venezolana',
-estadoCivil: 'Soltero(a)',
-casa: '28',
-tiempoResidencia: '5 años'
-}
-];
-
-eventos = [
-{
-id: '1',
-titulo: 'Reunión Mensual del Consejo',
-fecha: '2024-12-15',
-hora: '19:00',
-descripcion: 'Reunión ordinaria para tratar temas de la comunidad',
-lugar: 'Casa Comunal'
-}
-];
-
-censos = [
-{
-id: '1',
-nombre: 'Censo de Niños por Edades',
-tipo: 'poblacion',
-fecha: '2024-11-01',
-descripcion: 'Censo de población infantil',
-datos: [
-{ edad: '0-5 años', cantidad: '25', porcentaje: '35%' },
-{ edad: '6-12 años', cantidad: '30', porcentaje: '42%' },
-{ edad: '13-17 años', cantidad: '16', porcentaje: '23%' }
-]
-}
-];
+        console.log('✅ Datos cargados:', { 
+            ejecutivos: ejecutivos.length, 
+            residentes: residentes.length, 
+            eventos: eventos.length, 
+            censos: censos.length 
+        });
+    } catch (error) {
+        console.error('Error cargando datos:', error);
+        throw error;
+    }
 }
 
 function configurarEventListeners() {
-// Formatear cédulas automáticamente
-document.getElementById('cedula').addEventListener('input', function(e) {
-formatearCedula(e.target);
-});
+    document.getElementById('cedula').addEventListener('input', function(e) {
+        formatearCedula(e.target);
+    });
 
-document.getElementById('cedula-residente').addEventListener('input', function(e) {
-formatearCedula(e.target);
-});
+    document.getElementById('cedula-residente').addEventListener('input', function(e) {
+        formatearCedula(e.target);
+    });
 
-// Formularios
-document.getElementById('form-login').addEventListener('submit', manejarLogin);
-document.getElementById('form-evento').addEventListener('submit', manejarEvento);
-document.getElementById('form-residente').addEventListener('submit', manejarResidente);
-document.getElementById('form-ejecutivo').addEventListener('submit', manejarEjecutivo);
-document.getElementById('form-censo').addEventListener('submit', manejarCenso);
+    document.getElementById('form-login').addEventListener('submit', manejarLogin);
+    document.getElementById('form-evento').addEventListener('submit', manejarEvento);
+    document.getElementById('form-residente').addEventListener('submit', manejarResidente);
+    document.getElementById('form-ejecutivo').addEventListener('submit', manejarEjecutivo);
+    document.getElementById('form-censo').addEventListener('submit', manejarCenso);
 
-// Cerrar modales con Escape
-document.addEventListener('keydown', function(e) {
-if (e.key === 'Escape') {
-document.querySelectorAll('.modal.active').forEach(modal => {
-modal.classList.remove('active');
-});
-}
-});
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal.active').forEach(modal => {
+                modal.classList.remove('active');
+            });
+        }
+    });
 
-// Cerrar modales al hacer clic fuera
-document.querySelectorAll('.modal').forEach(modal => {
-modal.addEventListener('click', function(e) {
-if (e.target === modal) {
-modal.classList.remove('active');
-}
-});
-});
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    });
 }
 
-// Funciones de navegación
 function showSection(section) {
-if (section === 'ejecutivo' && !sesionActiva) {
-showSection('login');
-return;
+    if (section === 'ejecutivo' && !sesionActiva) {
+        showSection('login');
+        return;
+    }
+
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+    document.getElementById(section).classList.add('active');
+
+    const targetBtn = section === 'ejecutivo' ? 'ejecutivo-btn' :
+                     section === 'login' ? 'login-btn' :
+                     document.querySelector(`[onclick="showSection('${section}')"]`);
+
+    if (typeof targetBtn === 'string') {
+        document.getElementById(targetBtn).classList.add('active');
+    } else if (targetBtn) {
+        targetBtn.classList.add('active');
+    }
 }
 
-document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-
-document.getElementById(section).classList.add('active');
-
-const targetBtn = section === 'ejecutivo' ? 'ejecutivo-btn' :
-section === 'login' ? 'login-btn' :
-document.querySelector(`[onclick="showSection('${section}')"]`);
-
-if (typeof targetBtn === 'string') {
-document.getElementById(targetBtn).classList.add('active');
-} else if (targetBtn) {
-targetBtn.classList.add('active');
-}
-}
-
-// Gestión de sesiones
 async function manejarLogin(e) {
-e.preventDefault();
-const usuario = document.getElementById('usuario-login').value.trim();
-const password = document.getElementById('password-login').value.trim();
-const mensajeDiv = document.getElementById('mensaje-login');
+    e.preventDefault();
+    const usuario = document.getElementById('usuario-login').value.trim();
+    const password = document.getElementById('password-login').value.trim();
+    const mensajeDiv = document.getElementById('mensaje-login');
 
-if (!usuario || !password) {
-mensajeDiv.innerHTML = '<div class="error-message">Complete todos los campos</div>';
-return;
-}
+    if (!usuario || !password) {
+        mensajeDiv.innerHTML = '<div class="error-message">Complete todos los campos</div>';
+        return;
+    }
 
-const ejecutivo = ejecutivos.find(e => e.usuario === usuario && e.password === password && e.activo);
+    const ejecutivo = ejecutivos.find(e => e.usuario === usuario && e.password === password && e.activo);
 
-if (!ejecutivo) {
-mensajeDiv.innerHTML = '<div class="error-message">Credenciales incorrectas</div>';
-return;
-}
+    if (!ejecutivo) {
+        mensajeDiv.innerHTML = '<div class="error-message">Credenciales incorrectas</div>';
+        return;
+    }
 
-sesionActiva = ejecutivo;
-verificarSesion();
-showSection('ejecutivo');
-mensajeDiv.innerHTML = '<div class="success-message">Sesión iniciada correctamente</div>';
-document.getElementById('form-login').reset();
-mostrarNotificacion(`Bienvenido, ${ejecutivo.nombre}`, 'success');
+    sesionActiva = ejecutivo;
+    verificarSesion();
+    showSection('ejecutivo');
+    mensajeDiv.innerHTML = '<div class="success-message">Sesión iniciada correctamente</div>';
+    document.getElementById('form-login').reset();
+    mostrarNotificacion(`Bienvenido, ${ejecutivo.nombre}`, 'success');
 }
 
 function verificarSesion() {
-if (sesionActiva) {
-document.getElementById('login-btn').style.display = 'none';
-document.getElementById('ejecutivo-btn').style.display = 'block';
-document.getElementById('logout-btn').style.display = 'block';
-document.getElementById('usuario-actual').textContent = sesionActiva.nombre;
+    if (sesionActiva) {
+        document.getElementById('login-btn').style.display = 'none';
+        document.getElementById('ejecutivo-btn').style.display = 'block';
+        document.getElementById('logout-btn').style.display = 'block';
+        document.getElementById('usuario-actual').textContent = sesionActiva.nombre;
 
-if (sesionActiva.rol === 'admin') {
-document.getElementById('config-admin').style.display = 'block';
-cargarEjecutivos();
-document.getElementById('gentilicio-config').value = configuracion.gentilicio;
-}
-} else {
-document.getElementById('login-btn').style.display = 'block';
-document.getElementById('ejecutivo-btn').style.display = 'none';
-document.getElementById('logout-btn').style.display = 'none';
-document.getElementById('config-admin').style.display = 'none';
-}
+        if (sesionActiva.rol === 'admin') {
+            document.getElementById('config-admin').style.display = 'block';
+            cargarEjecutivos();
+            document.getElementById('gentilicio-config').value = configuracion.gentilicio;
+        }
+    } else {
+        document.getElementById('login-btn').style.display = 'block';
+        document.getElementById('ejecutivo-btn').style.display = 'none';
+        document.getElementById('logout-btn').style.display = 'none';
+        document.getElementById('config-admin').style.display = 'none';
+    }
 }
 
 function cerrarSesion() {
-sesionActiva = null;
-verificarSesion();
-showSection('residencia');
-mostrarNotificacion('Sesión cerrada correctamente', 'info');
+    sesionActiva = null;
+    verificarSesion();
+    showSection('residencia');
+    mostrarNotificacion('Sesión cerrada correctamente', 'info');
 }
 
-// Gestión de residentes
 async function cargarResidentes() {
-const tablaBody = document.getElementById('tabla-residentes');
+    const tablaBody = document.getElementById('tabla-residentes');
 
-if (residentes.length === 0) {
-tablaBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #666;">No hay residentes registrados</td></tr>';
-return;
-}
+    if (residentes.length === 0) {
+        tablaBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #666;">No hay residentes registrados</td></tr>';
+        return;
+    }
 
-tablaBody.innerHTML = residentes.map((residente, index) => `
-<tr>
-<td>${residente.cedula}</td>
-<td>${residente.nombre}</td>
-<td>${residente.nacionalidad}</td>
-<td>${residente.estadoCivil}</td>
-<td>${residente.casa}</td>
-<td>${residente.tiempoResidencia}</td>
-<td>
-<button class="btn-secondary" style="margin-right: 5px; padding: 6px 12px; font-size: 11px;"
-onclick="mostrarFormularioResidente(${JSON.stringify(residente).replace(/"/g, '&quot;')})">Editar</button>
-<button class="btn-danger" style="padding: 6px 12px; font-size: 11px;"
-onclick="eliminarResidente('${residente.id || index}')">Eliminar</button>
-</td>
-</tr>
-`).join('');
+    tablaBody.innerHTML = residentes.map(residente => `
+        <tr>
+            <td>${residente.cedula}</td>
+            <td>${residente.nombre}</td>
+            <td>${residente.nacionalidad}</td>
+            <td>${residente.estado_civil}</td>
+            <td>${residente.casa}</td>
+            <td>${residente.tiempo_residencia}</td>
+            <td>
+                <button class="btn-secondary" style="margin-right: 5px; padding: 6px 12px; font-size: 11px;"
+                    onclick='editarResidente(${JSON.stringify(residente)})'>Editar</button>
+                <button class="btn-danger" style="padding: 6px 12px; font-size: 11px;"
+                    onclick="eliminarResidente('${residente.id}')">Eliminar</button>
+            </td>
+        </tr>
+    `).join('');
 }
 
 async function manejarResidente(e) {
-e.preventDefault();
-mostrarLoading(true);
+    e.preventDefault();
+    mostrarLoading(true);
 
-try {
-let cedula = document.getElementById('cedula-residente').value.trim();
+    try {
+        let cedula = document.getElementById('cedula-residente').value.trim();
 
-if (!cedula.startsWith('V-') && /^\d+$/.test(cedula)) {
-cedula = 'V-' + cedula;
+        if (!cedula.startsWith('V-') && /^\d+$/.test(cedula)) {
+            cedula = 'V-' + cedula;
+        }
+
+        const residente = {
+            cedula: cedula,
+            nombre: document.getElementById('nombre-residente').value,
+            nacionalidad: document.getElementById('nacionalidad-residente').value,
+            estado_civil: document.getElementById('estado-civil-residente').value,
+            casa: document.getElementById('casa-residente').value,
+            tiempo_residencia: document.getElementById('tiempo-residencia').value
+        };
+
+        if (residenteEditando) {
+            const { error } = await window.supabase
+                .from('residentes')
+                .update(residente)
+                .eq('id', residenteEditando.id);
+
+            if (error) throw error;
+
+            const index = residentes.findIndex(r => r.id === residenteEditando.id);
+            residentes[index] = { ...residente, id: residenteEditando.id };
+            mostrarNotificacion('Residente actualizado correctamente', 'success');
+        } else {
+            if (residentes.find(r => r.cedula === cedula)) {
+                mostrarNotificacion('Ya existe un residente con esta cédula', 'error');
+                mostrarLoading(false);
+                return;
+            }
+
+            const { data, error } = await window.supabase
+                .from('residentes')
+                .insert([residente])
+                .select();
+
+            if (error) throw error;
+
+            residentes.push(data[0]);
+            mostrarNotificacion('Residente agregado correctamente', 'success');
+        }
+
+        await cargarResidentes();
+        cerrarModal('modal-residente');
+        residenteEditando = null;
+    } catch (error) {
+        console.error('Error al guardar residente:', error);
+        mostrarNotificacion('Error al guardar el residente', 'error');
+    }
+    mostrarLoading(false);
 }
 
-const residente = {
-cedula: cedula,
-nombre: document.getElementById('nombre-residente').value,
-nacionalidad: document.getElementById('nacionalidad-residente').value,
-estadoCivil: document.getElementById('estado-civil-residente').value,
-casa: document.getElementById('casa-residente').value,
-tiempoResidencia: document.getElementById('tiempo-residencia').value
-};
-
-if (residenteEditando) {
-// Actualizar
-if (residenteEditando.id) {
-await window.updateDoc(window.doc(window.db, 'residentes', residenteEditando.id), residente);
-}
-const index = residentes.findIndex(r => r.id === residenteEditando.id || r.cedula === residenteEditando.cedula);
-residentes[index] = { ...residente, id: residenteEditando.id };
-mostrarNotificacion('Residente actualizado correctamente', 'success');
-} else {
-// Verificar que no exista la cédula
-if (residentes.find(r => r.cedula === cedula)) {
-mostrarNotificacion('Ya existe un residente con esta cédula', 'error');
-mostrarLoading(false);
-return;
-}
-
-// Crear nuevo
-const docRef = await window.addDoc(window.collection(window.db, 'residentes'), residente);
-residentes.push({ ...residente, id: docRef.id });
-mostrarNotificacion('Residente agregado correctamente', 'success');
-}
-
-await cargarResidentes();
-cerrarModal('modal-residente');
-residenteEditando = null;
-} catch (error) {
-console.error('Error al guardar residente:', error);
-mostrarNotificacion('Error al guardar el residente', 'error');
-}
-mostrarLoading(false);
+function editarResidente(residente) {
+    residenteEditando = residente;
+    document.getElementById('cedula-residente').value = residente.cedula;
+    document.getElementById('nombre-residente').value = residente.nombre;
+    document.getElementById('nacionalidad-residente').value = residente.nacionalidad;
+    document.getElementById('estado-civil-residente').value = residente.estado_civil;
+    document.getElementById('casa-residente').value = residente.casa;
+    document.getElementById('tiempo-residencia').value = residente.tiempo_residencia;
+    document.getElementById('modal-residente').classList.add('active');
 }
 
 async function eliminarResidente(id) {
-if (!confirm('¿Está seguro de que desea eliminar este residente?')) return;
+    if (!confirm('¿Está seguro de que desea eliminar este residente?')) return;
 
-mostrarLoading(true);
-try {
-if (id && typeof id === 'string') {
-await window.deleteDoc(window.doc(window.db, 'residentes', id));
-residentes = residentes.filter(r => r.id !== id);
-} else {
-residentes.splice(parseInt(id), 1);
+    mostrarLoading(true);
+    try {
+        const { error } = await window.supabase
+            .from('residentes')
+            .delete()
+            .eq('id', id);
+
+        if (error) throw error;
+
+        residentes = residentes.filter(r => r.id !== id);
+        await cargarResidentes();
+        mostrarNotificacion('Residente eliminado correctamente', 'success');
+    } catch (error) {
+        console.error('Error al eliminar residente:', error);
+        mostrarNotificacion('Error al eliminar el residente', 'error');
+    }
+    mostrarLoading(false);
 }
 
-await cargarResidentes();
-mostrarNotificacion('Residente eliminado correctamente', 'success');
-} catch (error) {
-console.error('Error al eliminar residente:', error);
-mostrarNotificacion('Error al eliminar el residente', 'error');
-}
-mostrarLoading(false);
-}
-
-// Gestión de eventos
 async function cargarEventos() {
-const listaEventos = document.getElementById('lista-eventos');
+    const listaEventos = document.getElementById('lista-eventos');
 
-if (eventos.length === 0) {
-listaEventos.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">No hay eventos programados</p>';
-return;
-}
+    if (eventos.length === 0) {
+        listaEventos.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">No hay eventos programados</p>';
+        return;
+    }
 
-listaEventos.innerHTML = eventos.map(evento => `
-<div class="event-card">
-<div class="event-date">${formatearFecha(evento.fecha)} - ${evento.hora}</div>
-<h4 style="color: #e91e63; margin: 10px 0;">${evento.titulo}</h4>
-<p style="color: #666; font-size: 13px; margin: 10px 0;">${evento.descripcion || 'Sin descripción'}</p>
-${evento.lugar ? `<p style="color: #888; font-size: 12px;"><strong>📍 ${evento.lugar}</strong></p>` : ''}
-${sesionActiva ? `<div style="margin-top: 15px;">
-<button class="btn-secondary" onclick="mostrarFormularioEvento(${JSON.stringify(evento).replace(/"/g, '&quot;')})">Editar</button>
-<button class="btn-danger" onclick="eliminarEvento('${evento.id}')">Eliminar</button>
-</div>` : ''}
-</div>
-`).join('');
+    listaEventos.innerHTML = eventos.map(evento => `
+        <div class="event-card">
+            <div class="event-date">${formatearFecha(evento.fecha)} - ${evento.hora}</div>
+            <h4 style="color: #e91e63; margin: 10px 0;">${evento.titulo}</h4>
+            <p style="color: #666; font-size: 13px; margin: 10px 0;">${evento.descripcion || 'Sin descripción'}</p>
+            ${evento.lugar ? `<p style="color: #888; font-size: 12px;"><strong>📍 ${evento.lugar}</strong></p>` : ''}
+            ${sesionActiva ? `<div style="margin-top: 15px;">
+                <button class="btn-secondary" onclick='editarEvento(${JSON.stringify(evento)})'>Editar</button>
+                <button class="btn-danger" onclick="eliminarEvento('${evento.id}')">Eliminar</button>
+            </div>` : ''}
+        </div>
+    `).join('');
 }
 
 async function manejarEvento(e) {
-e.preventDefault();
-mostrarLoading(true);
+    e.preventDefault();
+    mostrarLoading(true);
 
-try {
-const evento = {
-titulo: document.getElementById('titulo-evento').value,
-fecha: document.getElementById('fecha-evento').value,
-hora: document.getElementById('hora-evento').value,
-descripcion: document.getElementById('descripcion-evento').value,
-lugar: document.getElementById('lugar-evento').value
-};
+    try {
+        const evento = {
+            titulo: document.getElementById('titulo-evento').value,
+            fecha: document.getElementById('fecha-evento').value,
+            hora: document.getElementById('hora-evento').value,
+            descripcion: document.getElementById('descripcion-evento').value,
+            lugar: document.getElementById('lugar-evento').value
+        };
 
-if (eventoEditando) {
-if (eventoEditando.id) {
-await window.updateDoc(window.doc(window.db, 'eventos', eventoEditando.id), evento);
-}
-const index = eventos.findIndex(e => e.id === eventoEditando.id);
-eventos[index] = { ...evento, id: eventoEditando.id };
-mostrarNotificacion('Evento actualizado correctamente', 'success');
-} else {
-const docRef = await window.addDoc(window.collection(window.db, 'eventos'), evento);
-eventos.push({ ...evento, id: docRef.id });
-mostrarNotificacion('Evento creado correctamente', 'success');
+        if (eventoEditando) {
+            const { error } = await window.supabase
+                .from('eventos')
+                .update(evento)
+                .eq('id', eventoEditando.id);
+
+            if (error) throw error;
+
+            const index = eventos.findIndex(e => e.id === eventoEditando.id);
+            eventos[index] = { ...evento, id: eventoEditando.id };
+            mostrarNotificacion('Evento actualizado correctamente', 'success');
+        } else {
+            const { data, error } = await window.supabase
+                .from('eventos')
+                .insert([evento])
+                .select();
+
+            if (error) throw error;
+
+            eventos.push(data[0]);
+            mostrarNotificacion('Evento creado correctamente', 'success');
+        }
+
+        await cargarEventos();
+        cerrarModal('modal-evento');
+        eventoEditando = null;
+    } catch (error) {
+        console.error('Error al guardar evento:', error);
+        mostrarNotificacion('Error al guardar el evento', 'error');
+    }
+    mostrarLoading(false);
 }
 
-await cargarEventos();
-cerrarModal('modal-evento');
-eventoEditando = null;
-} catch (error) {
-console.error('Error al guardar evento:', error);
-mostrarNotificacion('Error al guardar el evento', 'error');
-}
-mostrarLoading(false);
+function editarEvento(evento) {
+    eventoEditando = evento;
+    document.getElementById('titulo-evento').value = evento.titulo;
+    document.getElementById('fecha-evento').value = evento.fecha;
+    document.getElementById('hora-evento').value = evento.hora;
+    document.getElementById('descripcion-evento').value = evento.descripcion || '';
+    document.getElementById('lugar-evento').value = evento.lugar || '';
+    document.getElementById('modal-evento').classList.add('active');
 }
 
 async function eliminarEvento(id) {
-if (!confirm('¿Está seguro de que desea eliminar este evento?')) return;
+    if (!confirm('¿Está seguro de que desea eliminar este evento?')) return;
 
-mostrarLoading(true);
-try {
-await window.deleteDoc(window.doc(window.db, 'eventos', id));
-eventos = eventos.filter(e => e.id !== id);
-await cargarEventos();
-mostrarNotificacion('Evento eliminado correctamente', 'success');
-} catch (error) {
-console.error('Error al eliminar evento:', error);
-mostrarNotificacion('Error al eliminar el evento', 'error');
-}
-mostrarLoading(false);
+    mostrarLoading(true);
+    try {
+        const { error } = await window.supabase
+            .from('eventos')
+            .delete()
+            .eq('id', id);
+
+        if (error) throw error;
+
+        eventos = eventos.filter(e => e.id !== id);
+        await cargarEventos();
+        mostrarNotificacion('Evento eliminado correctamente', 'success');
+    } catch (error) {
+        console.error('Error al eliminar evento:', error);
+        mostrarNotificacion('Error al eliminar el evento', 'error');
+    }
+    mostrarLoading(false);
 }
 
-// Gestión de censos
 async function cargarCensos() {
-const censosDiv = document.getElementById('censos-disponibles');
+    const censosDiv = document.getElementById('censos-disponibles');
 
-if (censos.length === 0) {
-censosDiv.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">No hay censos disponibles</p>';
-return;
-}
+    if (censos.length === 0) {
+        censosDiv.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">No hay censos disponibles</p>';
+        return;
+    }
 
-censosDiv.innerHTML = censos.map(censo => `
-<div class="censo-card" onclick="verCenso('${censo.id}')">
-${sesionActiva ? `<div class="censo-card-actions">
-<button class="btn-icon edit" onclick="event.stopPropagation(); editarCenso('${censo.id}')" title="Editar">✏️</button>
-<button class="btn-icon delete" onclick="event.stopPropagation(); eliminarCenso('${censo.id}')" title="Eliminar">🗑️</button>
-</div>` : ''}
-<h3>${censo.nombre}</h3>
-<p>Tipo: ${censo.tipo.charAt(0).toUpperCase() + censo.tipo.slice(1)}</p>
-<p>Fecha: ${formatearFecha(censo.fecha)}</p>
-${censo.descripcion ? `<p>Descripción: ${censo.descripcion}</p>` : ''}
-<div class="censo-info-badge">
-${Array.isArray(censo.datos) ? censo.datos.length : Object.keys(censo.datos || {}).length} registros
-</div>
-</div>
-`).join('');
+    censosDiv.innerHTML = censos.map(censo => `
+        <div class="censo-card" onclick="verCenso('${censo.id}')">
+            ${sesionActiva ? `<div class="censo-card-actions">
+                <button class="btn-icon edit" onclick="event.stopPropagation(); editarCenso('${censo.id}')" title="Editar">✏️</button>
+                <button class="btn-icon delete" onclick="event.stopPropagation(); eliminarCenso('${censo.id}')" title="Eliminar">🗑️</button>
+            </div>` : ''}
+            <h3>${censo.nombre}</h3>
+            <p>Tipo: ${censo.tipo.charAt(0).toUpperCase() + censo.tipo.slice(1)}</p>
+            <p>Fecha: ${formatearFecha(censo.fecha)}</p>
+            ${censo.descripcion ? `<p>Descripción: ${censo.descripcion}</p>` : ''}
+            <div class="censo-info-badge">
+                ${Array.isArray(censo.datos) ? censo.datos.length : Object.keys(censo.datos || {}).length} registros
+            </div>
+        </div>
+    `).join('');
 }
 
 async function manejarCenso(e) {
-e.preventDefault();
-mostrarLoading(true);
+    e.preventDefault();
+    mostrarLoading(true);
 
-try {
-const campos = document.querySelectorAll('.campo-censo');
-const datos = [];
+    try {
+        const campos = document.querySelectorAll('.campo-censo');
+        const datos = [];
 
-campos.forEach(campo => {
-const nombre = campo.querySelector('.campo-nombre').value.trim();
-const valor = campo.querySelector('.campo-valor').value.trim();
-if (nombre && valor) {
-datos.push({ [nombre]: valor });
-}
-});
+        campos.forEach(campo => {
+            const nombre = campo.querySelector('.campo-nombre').value.trim();
+            const valor = campo.querySelector('.campo-valor').value.trim();
+            if (nombre && valor) {
+                datos.push({ [nombre]: valor });
+            }
+        });
 
-const censo = {
-nombre: document.getElementById('nombre-censo').value,
-tipo: document.getElementById('tipo-censo').value,
-descripcion: document.getElementById('descripcion-censo').value,
-fecha: new Date().toISOString().split('T')[0],
-datos: datos
-};
+        const censo = {
+            nombre: document.getElementById('nombre-censo').value,
+            tipo: document.getElementById('tipo-censo').value,
+            descripcion: document.getElementById('descripcion-censo').value,
+            fecha: new Date().toISOString().split('T')[0],
+            datos: datos
+        };
 
-const docRef = await window.addDoc(window.collection(window.db, 'censos'), censo);
-censos.push({ ...censo, id: docRef.id });
+        const { data, error } = await window.supabase
+            .from('censos')
+            .insert([censo])
+            .select();
 
-await cargarCensos();
-cerrarModal('modal-crear-censo');
-mostrarNotificacion('Censo creado correctamente', 'success');
-} catch (error) {
-console.error('Error al crear censo:', error);
-mostrarNotificacion('Error al crear el censo', 'error');
-}
-mostrarLoading(false);
+        if (error) throw error;
+
+        censos.unshift(data[0]);
+        await cargarCensos();
+        cerrarModal('modal-crear-censo');
+        mostrarNotificacion('Censo creado correctamente', 'success');
+    } catch (error) {
+        console.error('Error al crear censo:', error);
+        mostrarNotificacion('Error al crear el censo', 'error');
+    }
+    mostrarLoading(false);
 }
 
 function verCenso(id) {
-const censo = censos.find(c => c.id === id);
-if (!censo) return;
+    const censo = censos.find(c => c.id === id);
+    if (!censo) return;
 
-document.getElementById('titulo-censo').textContent = `📊 ${censo.nombre}`;
+    document.getElementById('titulo-censo').textContent = `📊 ${censo.nombre}`;
 
-let contenido = `
-<div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
-<strong>Fecha del censo:</strong> ${formatearFecha(censo.fecha)}<br>
-<strong>Tipo:</strong> ${censo.tipo.charAt(0).toUpperCase() + censo.tipo.slice(1)}<br>
-${censo.descripcion ? `<strong>Descripción:</strong> ${censo.descripcion}<br>` : ''}
-<strong>Total de registros:</strong> ${Array.isArray(censo.datos) ? censo.datos.length : Object.keys(censo.datos || {}).length}
-</div>
-`;
+    let contenido = `
+        <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+            <strong>Fecha del censo:</strong> ${formatearFecha(censo.fecha)}<br>
+            <strong>Tipo:</strong> ${censo.tipo.charAt(0).toUpperCase() + censo.tipo.slice(1)}<br>
+            ${censo.descripcion ? `<strong>Descripción:</strong> ${censo.descripcion}<br>` : ''}
+            <strong>Total de registros:</strong> ${Array.isArray(censo.datos) ? censo.datos.length : Object.keys(censo.datos || {}).length}
+        </div>
+    `;
 
-if (Array.isArray(censo.datos) && censo.datos.length > 0) {
-const keys = Object.keys(censo.datos[0]);
-contenido += `
-<div style="overflow-x: auto;">
-<table class="tabla-censo">
-<thead><tr>
-${keys.map(key => `<th>${key.charAt(0).toUpperCase() + key.slice(1)}</th>`).join('')}
-</tr></thead>
-<tbody>
-${censo.datos.map(fila => `<tr>${Object.values(fila).map(valor => `<td>${valor}</td>`).join('')}</tr>`).join('')}
-</tbody>
-</table>
-</div>
-`;
-} else {
-contenido += '<p style="text-align: center; color: #666;">No hay datos disponibles</p>';
-}
+    if (Array.isArray(censo.datos) && censo.datos.length > 0) {
+        const keys = Object.keys(censo.datos[0]);
+        contenido += `
+            <div style="overflow-x: auto;">
+                <table class="tabla-censo">
+                    <thead><tr>
+                        ${keys.map(key => `<th>${key.charAt(0).toUpperCase() + key.slice(1)}</th>`).join('')}
+                    </tr></thead>
+                    <tbody>
+                        ${censo.datos.map(fila => `<tr>${Object.values(fila).map(valor => `<td>${valor}</td>`).join('')}</tr>`).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    } else {
+        contenido += '<p style="text-align: center; color: #666;">No hay datos disponibles</p>';
+    }
 
-document.getElementById('contenido-censo').innerHTML = contenido;
-document.getElementById('modal-censo').classList.add('active');
+    document.getElementById('contenido-censo').innerHTML = contenido;
+    document.getElementById('modal-censo').classList.add('active');
 }
 
 async function editarCenso(id) {
-const censo = censos.find(c => c.id === id);
-if (!censo) return;
+    const censo = censos.find(c => c.id === id);
+    if (!censo) return;
 
-censoEditando = censo;
+    censoEditando = censo;
 
-document.getElementById('nombre-censo-edit').value = censo.nombre;
-document.getElementById('tipo-censo-edit').value = censo.tipo;
-document.getElementById('descripcion-censo-edit').value = censo.descripcion || '';
+    document.getElementById('nombre-censo-edit').value = censo.nombre;
+    document.getElementById('tipo-censo-edit').value = censo.tipo;
+    document.getElementById('descripcion-censo-edit').value = censo.descripcion || '';
 
-const datosDiv = document.getElementById('datos-censo-edit');
-datosDiv.innerHTML = '';
+    const datosDiv = document.getElementById('datos-censo-edit');
+    datosDiv.innerHTML = '';
 
-if (Array.isArray(censo.datos)) {
-censo.datos.forEach((dato, index) => {
-const keys = Object.keys(dato);
-const values = Object.values(dato);
+    if (Array.isArray(censo.datos)) {
+        censo.datos.forEach(dato => {
+            const keys = Object.keys(dato);
+            const values = Object.values(dato);
 
-const filaDiv = document.createElement('div');
-filaDiv.className = 'dato-fila';
-filaDiv.innerHTML = `
-<input type="text" value="${keys[0] || ''}" placeholder="Campo" class="dato-campo">
-<input type="text" value="${values[0] || ''}" placeholder="Valor" class="dato-valor">
-<button type="button" class="btn-danger" onclick="eliminarFilaDatos(this)">🗑️</button>
-`;
-datosDiv.appendChild(filaDiv);
-});
-}
+            const filaDiv = document.createElement('div');
+            filaDiv.className = 'dato-fila';
+            filaDiv.innerHTML = `
+                <input type="text" value="${keys[0] || ''}" placeholder="Campo" class="dato-campo">
+                <input type="text" value="${values[0] || ''}" placeholder="Valor" class="dato-valor">
+                <button type="button" class="btn-danger" onclick="eliminarFilaDatos(this)">🗑️</button>
+            `;
+            datosDiv.appendChild(filaDiv);
+        });
+    }
 
-document.getElementById('modal-editar-censo').classList.add('active');
+    document.getElementById('modal-editar-censo').classList.add('active');
 }
 
 async function guardarCambiosCenso() {
-if (!censoEditando) return;
+    if (!censoEditando) return;
 
-mostrarLoading(true);
-try {
-const filas = document.querySelectorAll('.dato-fila');
-const datos = [];
+    mostrarLoading(true);
+    try {
+        const filas = document.querySelectorAll('.dato-fila');
+        const datos = [];
 
-filas.forEach(fila => {
-const campo = fila.querySelector('.dato-campo').value.trim();
-const valor = fila.querySelector('.dato-valor').value.trim();
-if (campo && valor) {
-datos.push({ [campo]: valor });
-}
-});
+        filas.forEach(fila => {
+            const campo = fila.querySelector('.dato-campo').value.trim();
+            const valor = fila.querySelector('.dato-valor').value.trim();
+            if (campo && valor) {
+                datos.push({ [campo]: valor });
+            }
+        });
 
-const censoActualizado = {
-nombre: document.getElementById('nombre-censo-edit').value,
-tipo: document.getElementById('tipo-censo-edit').value,
-descripcion: document.getElementById('descripcion-censo-edit').value,
-datos: datos
-};
+        const censoActualizado = {
+            nombre: document.getElementById('nombre-censo-edit').value,
+            tipo: document.getElementById('tipo-censo-edit').value,
+            descripcion: document.getElementById('descripcion-censo-edit').value,
+            datos: datos
+        };
 
-await window.updateDoc(window.doc(window.db, 'censos', censoEditando.id), censoActualizado);
+        const { error } = await window.supabase
+            .from('censos')
+            .update(censoActualizado)
+            .eq('id', censoEditando.id);
 
-const index = censos.findIndex(c => c.id === censoEditando.id);
-censos[index] = { ...censos[index], ...censoActualizado };
+        if (error) throw error;
 
-await cargarCensos();
-cerrarModal('modal-editar-censo');
-censoEditando = null;
-mostrarNotificacion('Censo actualizado correctamente', 'success');
-} catch (error) {
-console.error('Error al actualizar censo:', error);
-mostrarNotificacion('Error al actualizar el censo', 'error');
-}
-mostrarLoading(false);
+        const index = censos.findIndex(c => c.id === censoEditando.id);
+        censos[index] = { ...censos[index], ...censoActualizado };
+
+        await cargarCensos();
+        cerrarModal('modal-editar-censo');
+        censoEditando = null;
+        mostrarNotificacion('Censo actualizado correctamente', 'success');
+    } catch (error) {
+        console.error('Error al actualizar censo:', error);
+        mostrarNotificacion('Error al actualizar el censo', 'error');
+    }
+    mostrarLoading(false);
 }
 
 async function eliminarCenso(id) {
-if (!confirm('¿Está seguro de que desea eliminar este censo?')) return;
+    if (!confirm('¿Está seguro de que desea eliminar este censo?')) return;
 
-mostrarLoading(true);
-try {
-await window.deleteDoc(window.doc(window.db, 'censos', id));
-censos = censos.filter(c => c.id !== id);
-await cargarCensos();
-mostrarNotificacion('Censo eliminado correctamente', 'success');
-} catch (error) {
-console.error('Error al eliminar censo:', error);
-mostrarNotificacion('Error al eliminar el censo', 'error');
-}
-mostrarLoading(false);
+    mostrarLoading(true);
+    try {
+        const { error } = await window.supabase
+            .from('censos')
+            .delete()
+            .eq('id', id);
+
+        if (error) throw error;
+
+        censos = censos.filter(c => c.id !== id);
+        await cargarCensos();
+        mostrarNotificacion('Censo eliminado correctamente', 'success');
+    } catch (error) {
+        console.error('Error al eliminar censo:', error);
+        mostrarNotificacion('Error al eliminar el censo', 'error');
+    }
+    mostrarLoading(false);
 }
 
 async function eliminarCensoCompleto() {
-if (!censoEditando) return;
-
-if (!confirm('¿Está seguro de que desea eliminar este censo completamente?')) return;
-
-await eliminarCenso(censoEditando.id);
-cerrarModal('modal-editar-censo');
-censoEditando = null;
+    if (!censoEditando) return;
+    await eliminarCenso(censoEditando.id);
+    cerrarModal('modal-editar-censo');
+    censoEditando = null;
 }
 
-// Gestión de ejecutivos
 async function cargarEjecutivos() {
-const tablaBody = document.getElementById('tabla-ejecutivos');
+    const tablaBody = document.getElementById('tabla-ejecutivos');
 
-tablaBody.innerHTML = ejecutivos.map((ejecutivo, index) => `
-<tr>
-<td>${ejecutivo.usuario}</td>
-<td>${ejecutivo.nombre}</td>
-<td><span style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: ${ejecutivo.rol === 'admin' ? '#e91e63' : '#4CAF50'}; color: white;">${ejecutivo.rol.toUpperCase()}</span></td>
-<td><span style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: ${ejecutivo.activo ? '#4CAF50' : '#f44336'}; color: white;">${ejecutivo.activo ? 'Activo' : 'Inactivo'}</span></td>
-<td>
-<button class="btn-secondary" style="margin-right: 5px; padding: 6px 12px; font-size: 11px;"
-onclick="mostrarFormularioEjecutivo(${JSON.stringify(ejecutivo).replace(/"/g, '&quot;')})">Editar</button>
-${ejecutivo.usuario !== 'admin' ? `<button class="btn-danger" style="padding: 6px 12px; font-size: 11px;"
-onclick="toggleEjecutivo('${ejecutivo.id || index}')">${ejecutivo.activo ? 'Desactivar' : 'Activar'}</button>` : ''}
-</td>
-</tr>
-`).join('');
+    tablaBody.innerHTML = ejecutivos.map(ejecutivo => `
+        <tr>
+            <td>${ejecutivo.usuario}</td>
+            <td>${ejecutivo.nombre}</td>
+            <td><span style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: ${ejecutivo.rol === 'admin' ? '#e91e63' : '#4CAF50'}; color: white;">${ejecutivo.rol.toUpperCase()}</span></td>
+            <td><span style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: ${ejecutivo.activo ? '#4CAF50' : '#f44336'}; color: white;">${ejecutivo.activo ? 'Activo' : 'Inactivo'}</span></td>
+            <td>
+                <button class="btn-secondary" style="margin-right: 5px; padding: 6px 12px; font-size: 11px;"
+                    onclick='editarEjecutivo(${JSON.stringify(ejecutivo)})'>Editar</button>
+                ${ejecutivo.usuario !== 'admin' ? `<button class="btn-danger" style="padding: 6px 12px; font-size: 11px;"
+                    onclick="toggleEjecutivo('${ejecutivo.id}')">${ejecutivo.activo ? 'Desactivar' : 'Activar'}</button>` : ''}
+            </td>
+        </tr>
+    `).join('');
 }
 
 async function manejarEjecutivo(e) {
-e.preventDefault();
-mostrarLoading(true);
+    e.preventDefault();
+    mostrarLoading(true);
 
-try {
-const usuario = document.getElementById('usuario-ejecutivo').value.trim();
-const ejecutivo = {
-usuario: usuario,
-password: document.getElementById('password-ejecutivo').value,
-nombre: document.getElementById('nombre-ejecutivo').value,
-rol: document.getElementById('rol-ejecutivo').value,
-activo: true
-};
+    try {
+        const usuario = document.getElementById('usuario-ejecutivo').value.trim();
+        const ejecutivo = {
+            usuario: usuario,
+            password: document.getElementById('password-ejecutivo').value,
+            nombre: document.getElementById('nombre-ejecutivo').value,
+            rol: document.getElementById('rol-ejecutivo').value,
+            activo: true
+        };
 
-if (ejecutivoEditando) {
-if (ejecutivoEditando.id) {
-await window.updateDoc(window.doc(window.db, 'ejecutivos', ejecutivoEditando.id), ejecutivo);
-}
-const index = ejecutivos.findIndex(e => e.id === ejecutivoEditando.id || e.usuario === ejecutivoEditando.usuario);
-ejecutivos[index] = { ...ejecutivo, id: ejecutivoEditando.id };
-mostrarNotificacion('Ejecutivo actualizado correctamente', 'success');
-} else {
-if (ejecutivos.find(e => e.usuario === usuario)) {
-mostrarNotificacion('Ya existe un ejecutivo con este usuario', 'error');
-mostrarLoading(false);
-return;
+        if (ejecutivoEditando) {
+            const { error } = await window.supabase
+                .from('ejecutivos')
+                .update(ejecutivo)
+                .eq('id', ejecutivoEditando.id);
+
+            if (error) throw error;
+
+            const index = ejecutivos.findIndex(e => e.id === ejecutivoEditando.id);
+            ejecutivos[index] = { ...ejecutivo, id: ejecutivoEditando.id };
+            mostrarNotificacion('Ejecutivo actualizado correctamente', 'success');
+        } else {
+            if (ejecutivos.find(e => e.usuario === usuario)) {
+                mostrarNotificacion('Ya existe un ejecutivo con este usuario', 'error');
+                mostrarLoading(false);
+                return;
+            }
+
+            const { data, error } = await window.supabase
+                .from('ejecutivos')
+                .insert([ejecutivo])
+                .select();
+
+            if (error) throw error;
+
+            ejecutivos.push(data[0]);
+            mostrarNotificacion('Ejecutivo agregado correctamente', 'success');
+        }
+
+        await cargarEjecutivos();
+        cerrarModal('modal-ejecutivo');
+        ejecutivoEditando = null;
+    } catch (error) {
+        console.error('Error al guardar ejecutivo:', error);
+        mostrarNotificacion('Error al guardar el ejecutivo', 'error');
+    }
+    mostrarLoading(false);
 }
 
-const docRef = await window.addDoc(window.collection(window.db, 'ejecutivos'), ejecutivo);
-ejecutivos.push({ ...ejecutivo, id: docRef.id });
-mostrarNotificacion('Ejecutivo agregado correctamente', 'success');
-}
-
-await cargarEjecutivos();
-cerrarModal('modal-ejecutivo');
-ejecutivoEditando = null;
-} catch (error) {
-console.error('Error al guardar ejecutivo:', error);
-mostrarNotificacion('Error al guardar el ejecutivo', 'error');
-}
-mostrarLoading(false);
+function editarEjecutivo(ejecutivo) {
+    ejecutivoEditando = ejecutivo;
+    document.getElementById('usuario-ejecutivo').value = ejecutivo.usuario;
+    document.getElementById('nombre-ejecutivo').value = ejecutivo.nombre;
+    document.getElementById('password-ejecutivo').value = ejecutivo.password;
+    document.getElementById('rol-ejecutivo').value = ejecutivo.rol;
+    document.getElementById('modal-ejecutivo').classList.add('active');
 }
 
 async function toggleEjecutivo(id) {
-mostrarLoading(true);
-try {
-const ejecutivo = ejecutivos.find(e => e.id === id || e.usuario === id);
-if (ejecutivo) {
-ejecutivo.activo = !ejecutivo.activo;
+    mostrarLoading(true);
+    try {
+        const ejecutivo = ejecutivos.find(e => e.id === id);
+        if (ejecutivo) {
+            ejecutivo.activo = !ejecutivo.activo;
 
-if (ejecutivo.id) {
-await window.updateDoc(window.doc(window.db, 'ejecutivos', ejecutivo.id), { activo: ejecutivo.activo });
+            const { error } = await window.supabase
+                .from('ejecutivos')
+                .update({ activo: ejecutivo.activo })
+                .eq('id', ejecutivo.id);
+
+            if (error) throw error;
+
+            await cargarEjecutivos();
+            mostrarNotificacion(`Ejecutivo ${ejecutivo.activo ? 'activado' : 'desactivado'} correctamente`, 'success');
+        }
+    } catch (error) {
+        console.error('Error al cambiar estado del ejecutivo:', error);
+        mostrarNotificacion('Error al cambiar el estado del ejecutivo', 'error');
+    }
+    mostrarLoading(false);
 }
 
-await cargarEjecutivos();
-mostrarNotificacion(`Ejecutivo ${ejecutivo.activo ? 'activado' : 'desactivado'} correctamente`, 'success');
-}
-} catch (error) {
-console.error('Error al cambiar estado del ejecutivo:', error);
-mostrarNotificacion('Error al cambiar el estado del ejecutivo', 'error');
-}
-mostrarLoading(false);
-}
-
-// Generación de carta de residencia
 async function generarCarta() {
-const cedula = document.getElementById('cedula').value.trim();
-const mensajeDiv = document.getElementById('mensaje-residencia');
+    const cedula = document.getElementById('cedula').value.trim();
+    const mensajeDiv = document.getElementById('mensaje-residencia');
 
-if (!cedula) {
-mensajeDiv.innerHTML = '<div class="error-message">Por favor ingrese su cédula de identidad</div>';
-return;
-}
+    if (!cedula) {
+        mensajeDiv.innerHTML = '<div class="error-message">Por favor ingrese su cédula de identidad</div>';
+        return;
+    }
 
-let cedulaFormateada = cedula;
-if (!cedula.startsWith('V-') && /^\d+$/.test(cedula)) {
-cedulaFormateada = 'V-' + cedula;
-}
+    let cedulaFormateada = cedula;
+    if (!cedula.startsWith('V-') && /^\d+$/.test(cedula)) {
+        cedulaFormateada = 'V-' + cedula;
+    }
 
-const residente = residentes.find(r => r.cedula === cedulaFormateada);
+    const residente = residentes.find(r => r.cedula === cedulaFormateada);
 
-if (!residente) {
-mensajeDiv.innerHTML = '<div class="error-message">Cédula no encontrada en el registro de residentes. Contacte al administrador.</div>';
-return;
-}
+    if (!residente) {
+        mensajeDiv.innerHTML = '<div class="error-message">Cédula no encontrada en el registro de residentes. Contacte al administrador.</div>';
+        return;
+    }
 
-const fechaActual = new Date();
-const dia = fechaActual.getDate();
-const mes = fechaActual.toLocaleString('es-ES', { month: 'long' });
-const año = fechaActual.getFullYear();
+    const fechaActual = new Date();
+    const dia = fechaActual.getDate();
+    const mes = fechaActual.toLocaleString('es-ES', { month: 'long' });
+    const año = fechaActual.getFullYear();
 
-const cartaHTML = `
-<div class="certificate-header">
-<img src="https://i.postimg.cc/SsGkdCGQ/imagen-2024-12-11-202032539.png" alt="Membrete Oficial" class="membrete-imagen">
-<h2><strong>REPÚBLICA BOLIVARIANA DE VENEZUELA</strong></h2>
-<h2><strong>Consejo Comunal "Fundo La Esperanza"</strong></h2>
-<h2><strong>Parroquia Filas de Mariches -- Municipio Sucre -- Estado Miranda</strong></h2>
-<h2><strong>RIF: J-40522948-9</strong></h2>
-</div>
+    const cartaHTML = `
+        <div class="certificate-header">
+            <img src="https://i.postimg.cc/SsGkdCGQ/imagen-2024-12-11-202032539.png" alt="Membrete Oficial" class="membrete-imagen">
+            <h2><strong>REPÚBLICA BOLIVARIANA DE VENEZUELA</strong></h2>
+            <h2><strong>Consejo Comunal "Fundo La Esperanza"</strong></h2>
+            <h2><strong>Parroquia Filas de Mariches -- Municipio Sucre -- Estado Miranda</strong></h2>
+            <h2><strong>RIF: J-40522948-9</strong></h2>
+        </div>
 
-<h3 style="text-align: center;"><strong>CONSTANCIA DE RESIDENCIA</strong></h3>
+        <h3 style="text-align: center;"><strong>CONSTANCIA DE RESIDENCIA</strong></h3>
 
-<p style="text-align: justify; margin: 20px 0;">
-Por medio de la presente, el Consejo Comunal "Fundo La Esperanza" hace constar que el(la) ciudadano(a)
-<strong>${residente.nombre}</strong>, titular de la Cédula de Identidad N° <strong>${residente.cedula}</strong>,
-de nacionalidad <strong>${configuracion.gentilicio}</strong> y estado civil <strong>${residente.estadoCivil}</strong>,
-reside en esta comunidad desde hace aproximadamente <strong>${residente.tiempoResidencia}</strong>,
-en la vivienda ubicada en la casa N° <strong>${residente.casa}</strong>.
-</p>
+        <p style="text-align: justify; margin: 20px 0;">
+            Por medio de la presente, el Consejo Comunal "Fundo La Esperanza" hace constar que el(la) ciudadano(a)
+            <strong>${residente.nombre}</strong>, titular de la Cédula de Identidad N° <strong>${residente.cedula}</strong>,
+            de nacionalidad <strong>${configuracion.gentilicio}</strong> y estado civil <strong>${residente.estado_civil}</strong>,
+            reside en esta comunidad desde hace aproximadamente <strong>${residente.tiempo_residencia}</strong>,
+            en la vivienda ubicada en la casa N° <strong>${residente.casa}</strong>.
+        </p>
 
-<p style="text-align: justify; margin: 20px 0;">
-Durante su permanencia en el sector, ha demostrado ser una persona de conducta intachable y de buenas costumbres,
-manteniendo una relación cordial y respetuosa con sus vecinos.
-</p>
+        <p style="text-align: justify; margin: 20px 0;">
+            Durante su permanencia en el sector, ha demostrado ser una persona de conducta intachable y de buenas costumbres,
+            manteniendo una relación cordial y respetuosa con sus vecinos.
+        </p>
 
-<p style="text-align: justify; margin: 20px 0;">
-Se expide la presente constancia a solicitud de la parte interesada, en <strong>Mariche</strong>,
-a los <strong>${dia}</strong> días del mes de <strong>${mes}</strong> del año <strong>${año}</strong>,
-para los fines legales que estime convenientes.
-</p>
+        <p style="text-align: justify; margin: 20px 0;">
+            Se expide la presente constancia a solicitud de la parte interesada, en <strong>Mariche</strong>,
+            a los <strong>${dia}</strong> días del mes de <strong>${mes}</strong> del año <strong>${año}</strong>,
+            para los fines legales que estime convenientes.
+        </p>
 
-<div style="margin-top: 40px;">
-<p><strong>Atentamente,</strong></p>
-<br>
-<div style="display: flex; justify-content: space-between; margin-top: 40px;">
-<div style="text-align: center;">
-<p><strong>Pablo Ortega</strong><br>
-C.I. V-13.711.426<br>
-Comité de Tierra, Vivienda y Hábitat</p>
-</div>
-<div style="text-align: center;">
-<p><strong>Yamilet Rangel</strong><br>
-C.I. V-10.542.222<br>
-Unidad de Contraloría</p>
-</div>
-</div>
-</div>
+        <div style="margin-top: 40px;">
+            <p><strong>Atentamente,</strong></p>
+            <br>
+            <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+                <div style="text-align: center;">
+                    <p><strong>Pablo Ortega</strong><br>
+                    C.I. V-13.711.426<br>
+                    Comité de Tierra, Vivienda y Hábitat</p>
+                </div>
+                <div style="text-align: center;">
+                    <p><strong>Yamilet Rangel</strong><br>
+                    C.I. V-10.542.222<br>
+                    Unidad de Contraloría</p>
+                </div>
+            </div>
+        </div>
 
-<div style="margin-top: 40px; border-top: 1px solid #ccc; padding-top: 20px;">
-<p style="font-size: 12px;">
-<strong>Dirección:</strong> Carretera Petare--Santa Lucía, km 12. Sector Fundo La Esperanza,
-Filas de Mariche, Municipio Sucre, Estado Miranda. <strong>Zona Postal:</strong> 1073<br>
-<strong>Teléfonos:</strong> 0412-920.4454 / 0412-974.5777
-</p>
-<p style="font-size: 12px; margin-top: 10px;"><strong>Nota:</strong> Esta constancia tiene una validez de seis (6) meses a partir de la fecha de emisión.</p>
-</div>
-`;
+        <div style="margin-top: 40px; border-top: 1px solid #ccc; padding-top: 20px;">
+            <p style="font-size: 12px;">
+                <strong>Dirección:</strong> Carretera Petare--Santa Lucía, km 12. Sector Fundo La Esperanza,
+                Filas de Mariche, Municipio Sucre, Estado Miranda. <strong>Zona Postal:</strong> 1073<br>
+                <strong>Teléfonos:</strong> 0412-920.4454 / 0412-974.5777
+            </p>
+            <p style="font-size: 12px; margin-top: 10px;"><strong>Nota:</strong> Esta constancia tiene una validez de seis (6) meses a partir de la fecha de emisión.</p>
+        </div>
+    `;
 
-document.getElementById('carta-contenido').innerHTML = cartaHTML;
-document.getElementById('modal-carta').classList.add('active');
+    document.getElementById('carta-contenido').innerHTML = cartaHTML;
+    document.getElementById('modal-carta').classList.add('active');
 
-mensajeDiv.innerHTML = '<div class="success-message">Carta de residencia generada exitosamente</div>';
+    mensajeDiv.innerHTML = '<div class="success-message">Carta de residencia generada exitosamente</div>';
 }
 
 function imprimirCarta() {
-const contenido = document.getElementById('carta-contenido').innerHTML;
-const ventana = window.open('', '_blank');
-ventana.document.write(`
-<!DOCTYPE html>
-<html>
-<head>
-<title>Carta de Residencia</title>
-<style>
-body { font-family: 'Times New Roman', serif; margin: 40px; line-height: 1.6; }
-.certificate-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 20px; }
-.membrete-imagen { width: 100%; max-width: 500px; height: auto; margin-bottom: 15px; }
-h2 { font-size: 16px; margin: 5px 0; }
-h3 { font-size: 18px; text-decoration: underline; text-align: center; margin: 20px 0; }
-p { text-align: justify; margin: 15px 0; }
-@media print { body { margin: 20px; } }
-</style>
-</head>
-<body>${contenido}</body>
-</html>
-`);
-ventana.document.close();
-ventana.print();
+    const contenido = document.getElementById('carta-contenido').innerHTML;
+    const ventana = window.open('', '_blank');
+    ventana.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Carta de Residencia</title>
+            <style>
+                body { font-family: 'Times New Roman', serif; margin: 40px; line-height: 1.6; }
+                .certificate-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 20px; }
+                .membrete-imagen { width: 100%; max-width: 500px; height: auto; margin-bottom: 15px; }
+                h2 { font-size: 16px; margin: 5px 0; }
+                h3 { font-size: 18px; text-decoration: underline; text-align: center; margin: 20px 0; }
+                p { text-align: justify; margin: 15px 0; }
+                @media print { body { margin: 20px; } }
+            </style>
+        </head>
+        <body>${contenido}</body>
+        </html>
+    `);
+    ventana.document.close();
+    ventana.print();
 }
 
-// Funciones auxiliares
 function formatearCedula(input) {
-let valor = input.value.replace(/[^0-9]/g, '');
-if (valor && !input.value.startsWith('V-')) {
-input.value = 'V-' + valor;
-}
+    let valor = input.value.replace(/[^0-9]/g, '');
+    if (valor && !input.value.startsWith('V-')) {
+        input.value = 'V-' + valor;
+    }
 }
 
 function formatearFecha(fecha) {
-const date = new Date(fecha + 'T00:00:00');
-return date.toLocaleDateString('es-ES', {
-year: 'numeric',
-month: 'long',
-day: 'numeric'
-});
+    const date = new Date(fecha + 'T00:00:00');
+    return date.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
 }
 
 function mostrarLoading(mostrar) {
-const overlay = document.getElementById('loading-overlay');
-if (mostrar) {
-overlay.style.display = 'flex';
-} else {
-overlay.style.display = 'none';
-}
+    const overlay = document.getElementById('loading-overlay');
+    overlay.style.display = mostrar ? 'flex' : 'none';
 }
 
 function mostrarNotificacion(mensaje, tipo = 'info') {
-const notification = document.createElement('div');
-notification.className = `notification ${tipo}`;
-notification.textContent = mensaje;
+    const notification = document.createElement('div');
+    notification.className = `notification ${tipo}`;
+    notification.textContent = mensaje;
 
-document.body.appendChild(notification);
+    document.body.appendChild(notification);
 
-setTimeout(() => {
-notification.style.animation = 'slideOutRight 0.3s ease-out forwards';
-setTimeout(() => {
-if (notification.parentNode) {
-notification.parentNode.removeChild(notification);
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease-out forwards';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
 }
-}, 300);
-}, 3000);
-}
 
-// Funciones de modales
 function mostrarFormularioEvento(evento = null) {
-eventoEditando = evento;
-
-if (evento) {
-document.getElementById('titulo-evento').value = evento.titulo;
-document.getElementById('fecha-evento').value = evento.fecha;
-document.getElementById('hora-evento').value = evento.hora;
-document.getElementById('descripcion-evento').value = evento.descripcion || '';
-document.getElementById('lugar-evento').value = evento.lugar || '';
-} else {
-document.getElementById('form-evento').reset();
-}
-
-document.getElementById('modal-evento').classList.add('active');
+    eventoEditando = evento;
+    if (evento) {
+        document.getElementById('titulo-evento').value = evento.titulo;
+        document.getElementById('fecha-evento').value = evento.fecha;
+        document.getElementById('hora-evento').value = evento.hora;
+        document.getElementById('descripcion-evento').value = evento.descripcion || '';
+        document.getElementById('lugar-evento').value = evento.lugar || '';
+    } else {
+        document.getElementById('form-evento').reset();
+    }
+    document.getElementById('modal-evento').classList.add('active');
 }
 
 function mostrarFormularioResidente(residente = null) {
-residenteEditando = residente;
-
-if (residente) {
-document.getElementById('cedula-residente').value = residente.cedula;
-document.getElementById('nombre-residente').value = residente.nombre;
-document.getElementById('nacionalidad-residente').value = residente.nacionalidad;
-document.getElementById('estado-civil-residente').value = residente.estadoCivil;
-document.getElementById('casa-residente').value = residente.casa;
-document.getElementById('tiempo-residencia').value = residente.tiempoResidencia;
-} else {
-document.getElementById('form-residente').reset();
-}
-
-document.getElementById('modal-residente').classList.add('active');
+    residenteEditando = residente;
+    if (residente) {
+        document.getElementById('cedula-residente').value = residente.cedula;
+        document.getElementById('nombre-residente').value = residente.nombre;
+        document.getElementById('nacionalidad-residente').value = residente.nacionalidad;
+        document.getElementById('estado-civil-residente').value = residente.estado_civil;
+        document.getElementById('casa-residente').value = residente.casa;
+        document.getElementById('tiempo-residencia').value = residente.tiempo_residencia;
+    } else {
+        document.getElementById('form-residente').reset();
+    }
+    document.getElementById('modal-residente').classList.add('active');
 }
 
 function mostrarFormularioEjecutivo(ejecutivo = null) {
-ejecutivoEditando = ejecutivo;
-
-if (ejecutivo) {
-document.getElementById('usuario-ejecutivo').value = ejecutivo.usuario;
-document.getElementById('nombre-ejecutivo').value = ejecutivo.nombre;
-document.getElementById('password-ejecutivo').value = ejecutivo.password;
-document.getElementById('rol-ejecutivo').value = ejecutivo.rol;
-} else {
-document.getElementById('form-ejecutivo').reset();
-}
-
-document.getElementById('modal-ejecutivo').classList.add('active');
+    ejecutivoEditando = ejecutivo;
+    if (ejecutivo) {
+        document.getElementById('usuario-ejecutivo').value = ejecutivo.usuario;
+        document.getElementById('nombre-ejecutivo').value = ejecutivo.nombre;
+        document.getElementById('password-ejecutivo').value = ejecutivo.password;
+        document.getElementById('rol-ejecutivo').value = ejecutivo.rol;
+    } else {
+        document.getElementById('form-ejecutivo').reset();
+    }
+    document.getElementById('modal-ejecutivo').classList.add('active');
 }
 
 function mostrarFormularioCenso() {
-document.getElementById('form-censo').reset();
-document.getElementById('campos-censo').innerHTML = `
-<div class="campo-censo" style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
-<input type="text" class="form-control campo-nombre" placeholder="Nombre del campo" style="flex: 1;">
-<input type="text" class="form-control campo-valor" placeholder="Valor" style="flex: 1;">
-<button type="button" class="btn-danger" onclick="eliminarCampoCenso(this)" style="padding: 8px 12px;">🗑️</button>
-</div>
-`;
-document.getElementById('modal-crear-censo').classList.add('active');
+    document.getElementById('form-censo').reset();
+    document.getElementById('campos-censo').innerHTML = `
+        <div class="campo-censo">
+            <input type="text" class="form-control campo-nombre" placeholder="Campo" style="flex: 1;">
+            <input type="text" class="form-control campo-valor" placeholder="Valor" style="flex: 1;">
+            <button type="button" class="btn-danger" onclick="eliminarCampoCenso(this)">🗑️</button>
+        </div>
+    `;
+    document.getElementById('modal-crear-censo').classList.add('active');
 }
 
 function agregarCampoCenso() {
-const camposDiv = document.getElementById('campos-censo');
-const nuevoCampo = document.createElement('div');
-nuevoCampo.className = 'campo-censo';
-nuevoCampo.style = 'display: flex; gap: 10px; margin-bottom: 10px; align-items: center;';
-nuevoCampo.innerHTML = `
-<input type="text" class="form-control campo-nombre" placeholder="Nombre del campo" style="flex: 1;">
-<input type="text" class="form-control campo-valor" placeholder="Valor" style="flex: 1;">
-<button type="button" class="btn-danger" onclick="eliminarCampoCenso(this)" style="padding: 8px 12px;">🗑️</button>
-`;
-camposDiv.appendChild(nuevoCampo);
+    const camposDiv = document.getElementById('campos-censo');
+    const nuevoCampo = document.createElement('div');
+    nuevoCampo.className = 'campo-censo';
+    nuevoCampo.innerHTML = `
+        <input type="text" class="form-control campo-nombre" placeholder="Campo" style="flex: 1;">
+        <input type="text" class="form-control campo-valor" placeholder="Valor" style="flex: 1;">
+        <button type="button" class="btn-danger" onclick="eliminarCampoCenso(this)">🗑️</button>
+    `;
+    camposDiv.appendChild(nuevoCampo);
 }
 
 function eliminarCampoCenso(button) {
-button.parentElement.remove();
+    button.parentElement.remove();
 }
 
 function agregarFilaDatos() {
-const datosDiv = document.getElementById('datos-censo-edit');
-const nuevaFila = document.createElement('div');
-nuevaFila.className = 'dato-fila';
-nuevaFila.innerHTML = `
-<input type="text" placeholder="Campo" class="dato-campo">
-<input type="text" placeholder="Valor" class="dato-valor">
-<button type="button" class="btn-danger" onclick="eliminarFilaDatos(this)">🗑️</button>
-`;
-datosDiv.appendChild(nuevaFila);
+    const datosDiv = document.getElementById('datos-censo-edit');
+    const nuevaFila = document.createElement('div');
+    nuevaFila.className = 'dato-fila';
+    nuevaFila.innerHTML = `
+        <input type="text" placeholder="Campo" class="dato-campo">
+        <input type="text" placeholder="Valor" class="dato-valor">
+        <button type="button" class="btn-danger" onclick="eliminarFilaDatos(this)">🗑️</button>
+    `;
+    datosDiv.appendChild(nuevaFila);
 }
 
 function eliminarFilaDatos(button) {
-button.parentElement.remove();
+    button.parentElement.remove();
 }
 
 function cerrarModal(modalId) {
-document.getElementById(modalId).classList.remove('active');
+    document.getElementById(modalId).classList.remove('active');
 }
 
-// Configuración
 async function actualizarGentilicio() {
-const nuevoGentilicio = document.getElementById('gentilicio-config').value.trim();
-if (nuevoGentilicio) {
-mostrarLoading(true);
-try {
-configuracion.gentilicio = nuevoGentilicio;
+    const nuevoGentilicio = document.getElementById('gentilicio-config').value.trim();
+    if (nuevoGentilicio) {
+        mostrarLoading(true);
+        try {
+            const { error } = await window.supabase
+                .from('configuracion')
+                .update({ gentilicio: nuevoGentilicio })
+                .eq('id', configuracion.id);
 
-// Guardar en Firebase
-const configRef = window.collection(window.db, 'configuracion');
-const snapshot = await window.getDocs(configRef);
+            if (error) throw error;
 
-if (snapshot.empty) {
-await window.addDoc(configRef, configuracion);
-} else {
-await window.updateDoc(window.doc(window.db, 'configuracion', snapshot.docs[0].id), configuracion);
-}
-
-mostrarNotificacion('Gentilicio actualizado correctamente', 'success');
-} catch (error) {
-console.error('Error al actualizar gentilicio:', error);
-mostrarNotificacion('Error al actualizar el gentilicio', 'error');
-}
-mostrarLoading(false);
-}
+            configuracion.gentilicio = nuevoGentilicio;
+            mostrarNotificacion('Gentilicio actualizado correctamente', 'success');
+        } catch (error) {
+            console.error('Error al actualizar gentilicio:', error);
+            mostrarNotificacion('Error al actualizar el gentilicio', 'error');
+        }
+        mostrarLoading(false);
+    }
 }
 
-// Funciones de importación/exportación
-function importarExcel(tipo) {
-const input = document.createElement('input');
-input.type = 'file';
-input.accept = '.xlsx,.xls,.csv';
-input.onchange = async function(e) {
-const file = e.target.files[0];
-if (file) {
-mostrarLoading(true);
-try {
-if (tipo === 'residentes') {
-mostrarNotificacion('Funcionalidad de importación en desarrollo', 'info');
-} else if (tipo === 'censo') {
-// Simular creación de censo desde archivo
-const nuevoCenso = {
-nombre: `Censo Importado - ${new Date().toLocaleDateString()}`,
-tipo: 'importado',
-fecha: new Date().toISOString().split('T')[0],
-descripcion: 'Censo importado desde archivo Excel',
-datos: [
-{ categoria: 'Muestra 1', valor: '25', descripcion: 'Dato de ejemplo' },
-{ categoria: 'Muestra 2', valor: '30', descripcion: 'Dato de ejemplo' },
-{ categoria: 'Muestra 3', valor: '15', descripcion: 'Dato de ejemplo' }
-]
-};
+       // Funciones de importaci贸n/exportaci贸n
+        function importarExcel(tipo) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.xlsx,.xls,.csv';
+            input.onchange = async function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    mostrarLoading(true);
+                    try {
+                        if (tipo === 'residentes') {
+                            mostrarNotificacion('Funcionalidad de importaci贸n en desarrollo', 'info');
+                        } else if (tipo === 'censo') {
+                            // Simular creaci贸n de censo desde archivo
+                            const nuevoCenso = {
+                                nombre: `Censo Importado - ${new Date().toLocaleDateString()}`,
+                                tipo: 'importado',
+                                fecha: new Date().toISOString().split('T')[0],
+                                descripcion: 'Censo importado desde archivo Excel',
+                                datos: [
+                                    { categoria: 'Muestra 1', valor: '25', descripcion: 'Dato de ejemplo' },
+                                    { categoria: 'Muestra 2', valor: '30', descripcion: 'Dato de ejemplo' },
+                                    { categoria: 'Muestra 3', valor: '15', descripcion: 'Dato de ejemplo' }
+                                ]
+                            };
+                            
+                            const docRef = await window.addDoc(window.collection(window.db, 'censos'), nuevoCenso);
+                            censos.push({ ...nuevoCenso, id: docRef.id });
+                            await cargarCensos();
+                            mostrarNotificacion('Censo importado exitosamente', 'success');
+                        }
+                    } catch (error) {
+                        console.error('Error al importar archivo:', error);
+                        mostrarNotificacion('Error al procesar el archivo', 'error');
+                    }
+                    mostrarLoading(false);
+                }
+            };
+            input.click();
+        }
 
-const docRef = await window.addDoc(window.collection(window.db, 'censos'), nuevoCenso);
-censos.push({ ...nuevoCenso, id: docRef.id });
-await cargarCensos();
-mostrarNotificacion('Censo importado exitosamente', 'success');
-}
-} catch (error) {
-console.error('Error al importar archivo:', error);
-mostrarNotificacion('Error al procesar el archivo', 'error');
-}
-mostrarLoading(false);
-}
-};
-input.click();
-}
+        function exportarCenso() {
+            mostrarNotificacion('Funcionalidad de exportaci贸n en desarrollo', 'info');
+        }
 
-function exportarCenso() {
-mostrarNotificacion('Funcionalidad de exportación en desarrollo', 'info');
-}
-
-function gestionarCensos() {
-showSection('censos');
-cerrarModal('modal-censo');
-}
-</script>
+        function gestionarCensos() {
+            showSection('censos');
+            cerrarModal('modal-censo');
+        }
+    </script>
 </body>
 </html>
